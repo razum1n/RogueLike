@@ -38,6 +38,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Floor
+    uniqueID: 1631688355
+    locked: 0
+  - name: Wall
+    uniqueID: 1262292781
+    locked: 0
+  - name: Player
+    uniqueID: 128289117
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
