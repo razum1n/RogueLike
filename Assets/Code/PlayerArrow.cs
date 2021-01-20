@@ -9,6 +9,9 @@ public class PlayerArrow : MonoBehaviour
     public Rigidbody2D rb;
 
     public GameObject impactEffect;
+    public GameObject enemyImpactEffect;
+
+    public int damage;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +27,13 @@ public class PlayerArrow : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag != "Player")
+        if(other.tag == "Enemy")
+        {
+            Instantiate(enemyImpactEffect, transform.position, transform.rotation);
+            other.GetComponent<EnemyController>().DamageEnemy(damage);
+            Destroy(gameObject);
+        }
+        else if(other.tag != "Player")
         {
             Instantiate(impactEffect, transform.position, transform.rotation);
             Destroy(gameObject);

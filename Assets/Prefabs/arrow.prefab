@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6480858099133921778}
   - component: {fileID: 6480858099133921779}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: arrowSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6480858100118955194}
   - component: {fileID: 6480858100118955197}
   - component: {fileID: 8438302779537116159}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,6 +179,9 @@ MonoBehaviour:
   rb: {fileID: 0}
   impactEffect: {fileID: 3905916594940981147, guid: 7920cd3c1ad3b1c4e88db3a55548f4f1,
     type: 3}
+  enemyImpactEffect: {fileID: 3905916594940981147, guid: 0c0bc0d5534d4af48b00ab132749eec6,
+    type: 3}
+  damage: 50
 --- !u!212 &8438302779537116159
 SpriteRenderer:
   m_ObjectHideFlags: 0
