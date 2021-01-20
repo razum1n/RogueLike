@@ -47,34 +47,37 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        switch(enemy)
+        if(PlayerController.instance.gameObject.activeInHierarchy)
         {
-            case EnemyType.Zombie:
-                if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) < enemyActivationRange)
-                {
-                    moveDirection = PlayerController.instance.transform.position - transform.position;
-                }
-                moveDirection.Normalize();
-                rb.velocity = moveDirection * moveSpeed;
-                if (moveDirection != Vector3.zero)
-                {
-                    anim.SetBool("isMoving", true);
-                }
-                break;
-            case EnemyType.Demon:
-                if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) < enemyActivationRange && theBody.isVisible)
-                {
-                    fireCounter -= Time.deltaTime;
-
-                    if (fireCounter <= 0)
+            switch (enemy)
+            {
+                case EnemyType.Zombie:
+                    if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) < enemyActivationRange)
                     {
-                        fireCounter = fireRate;
-                        Instantiate(fireBall, firePoint.position, firePoint.rotation);
+                        moveDirection = PlayerController.instance.transform.position - transform.position;
                     }
-                }
-                break;
+                    moveDirection.Normalize();
+                    rb.velocity = moveDirection * moveSpeed;
+                    if (moveDirection != Vector3.zero)
+                    {
+                        anim.SetBool("isMoving", true);
+                    }
+                    break;
+                case EnemyType.Demon:
+                    if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) < enemyActivationRange && theBody.isVisible)
+                    {
+                        fireCounter -= Time.deltaTime;
+
+                        if (fireCounter <= 0)
+                        {
+                            fireCounter = fireRate;
+                            Instantiate(fireBall, firePoint.position, firePoint.rotation);
+                        }
+                    }
+                    break;
+            }
         }
+
 
     }
 

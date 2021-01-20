@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
 
     public GameObject arrow;
 
+    public SpriteRenderer bodySprite;
+
     void Awake()
     {
         instance = this;

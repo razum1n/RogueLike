@@ -8,6 +8,8 @@ public class EnemyAttack : MonoBehaviour
     public float speed;
     private Vector3 direction;
 
+    public GameObject hitEffect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +28,8 @@ public class EnemyAttack : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-
+            PlayerHealthController.instance.DamagePlayer();
+            Instantiate(hitEffect, transform.position, transform.rotation);
         }
 
         Destroy(gameObject);
