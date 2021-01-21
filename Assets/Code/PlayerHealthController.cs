@@ -49,7 +49,7 @@ public class PlayerHealthController : MonoBehaviour
 
     public void DamagePlayer()
     {
-        if(invCount <= 0)
+        if(invCount <= 0 && PlayerController.instance.isDashing == false)
         {
             currentHealth--;
             invCount = invincibility;
