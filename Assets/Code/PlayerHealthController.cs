@@ -55,18 +55,8 @@ public class PlayerHealthController : MonoBehaviour
             invCount = invincibility;
 
             PlayerController.instance.bodySprite.color = new Color(1f, 1f, 1f, 0.5f);
-
-            int damageNumber = 0;
             PlayerController.instance.anim.SetTrigger("isHit");
-            for (int i = 0; i < maxHealth; i++)
-            {
-                if (i >= currentHealth)
-                {
-                    uiHealth[i].SetActive(false);
-                    uiDamage[damageNumber].SetActive(true);
-                    damageNumber++;
-                }
-            }
+            UpdateUi();
 
             if (currentHealth <= 0)
             {
@@ -74,7 +64,36 @@ public class PlayerHealthController : MonoBehaviour
                 deathScreen.SetActive(true);
             }
         }
+    }
 
+    private void UpdateUi()
+    {
+        int damageNumber = 0;
 
+        for (int i = 0; i < maxHealth; i++)
+        {
+            if (i >= currentHealth)
+            {
+                uiHealth[i].SetActive(false);
+                uiDamage[damageNumber].SetActive(true);
+                damageNumber++;
+            }
+            else
+            {
+                uiHealth[i].SetActive(true);
+                uiDamage[i].SetActive(false);
+            }
+        }
+    }
+
+    public void HealPlayer(int healAmount)
+    {
+        currentHealth += healAmount;
+        UpdateUi();
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        
     }
 }

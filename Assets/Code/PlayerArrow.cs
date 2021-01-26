@@ -33,7 +33,7 @@ public class PlayerArrow : MonoBehaviour
             other.GetComponent<EnemyController>().DamageEnemy(damage);
             Destroy(gameObject);
         }
-        else if(other.tag != "Player")
+        else if(other.tag == "Untagged")
         {
             Instantiate(impactEffect, transform.position, transform.rotation);
             Destroy(gameObject);

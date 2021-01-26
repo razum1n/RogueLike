@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Object
+  - PlayerArrow
   layers:
   - Default
   - TransparentFX
@@ -19,7 +21,7 @@ TagManager:
   - Enemies
   - Enemy Bullet
   - Hazard
-  - 
+  - Ignore Bullets
   - 
   - 
   - 
@@ -39,15 +41,27 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Floor
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 3220003869
+    locked: 0
+  - name: Objects
+    uniqueID: 2164382591
+    locked: 0
+  - name: Pickups
+    uniqueID: 2677825629
+    locked: 0
+  - name: Enemies
     uniqueID: 1631688355
     locked: 0
-  - name: Wall
+  - name: Bullets
     uniqueID: 1262292781
     locked: 0
   - name: Player
     uniqueID: 128289117
     locked: 0
-  - name: Default
-    uniqueID: 0
+  - name: Edge
+    uniqueID: 3435168069
     locked: 0
