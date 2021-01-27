@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
     public SpriteRenderer bodySprite;
 
-
+    public bool canMove = true;
 
     void Awake()
     {
@@ -51,6 +51,78 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        if(canMove && !LevelManager.instance.isPaused)
+        {
+            HandleMovement();
+            HandleShooting();
+            HandleDashing();
+        }
+
+    }
+
+    private void HandleShooting()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Instantiate(arrow, arrowSpawnPoint.position, arrowSpawnPoint.rotation);
+            fireCount = fireRate;
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            fireCount -= Time.deltaTime;
+
+            if (fireCount <= 0)
+            {
+                Instantiate(arrow, arrowSpawnPoint.position, arrowSpawnPoint.rotation);
+                fireCount = fireRate;
+            }
+        }
+    }
+
+    private void HandleDashing()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (dashCoolCounter <= 0 && dashCounter <= 0)
+            {
+                activeMoveSpeed = dashSpeed;
+                dashCounter = dashLength;
+                isDashing = true;
+                anim.SetTrigger("isDashing");
+
+                for (int i = 0; i < trailEffects.Length; i++)
+                {
+                    trailEffects[i].SetActive(true);
+                }
+            }
+
+        }
+
+
+        if (dashCounter > 0)
+        {
+            dashCounter -= Time.deltaTime;
+            if (dashCounter <= 0)
+            {
+                activeMoveSpeed = moveSpeed;
+                isDashing = false;
+                dashCoolCounter = dashCooldown;
+                for (int i = 0; i < trailEffects.Length; i++)
+                {
+                    trailEffects[i].SetActive(false);
+                }
+            }
+        }
+
+        if (dashCoolCounter > 0)
+        {
+            dashCoolCounter -= Time.deltaTime;
+        }
+    }
+
+    private void HandleMovement()
     {
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
@@ -73,76 +145,14 @@ public class PlayerController : MonoBehaviour
             transform.localScale = Vector3.one;
             bowArm.localScale = Vector3.one;
         }
-            
 
-        RotateBow(mousePos, screenPoint);
-
-        if(Input.GetMouseButtonDown(0))
-        {
-            Instantiate(arrow, arrowSpawnPoint.position,arrowSpawnPoint.rotation);
-            fireCount = fireRate;
-        }
-
-        if(Input.GetMouseButton(0))
-        {
-            fireCount -= Time.deltaTime;
-
-            if(fireCount <= 0)
-            {
-                Instantiate(arrow, arrowSpawnPoint.position, arrowSpawnPoint.rotation);
-                fireCount = fireRate;
-            }
-        }
-
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            if(dashCoolCounter <= 0 && dashCounter <= 0)
-            {
-                activeMoveSpeed = dashSpeed;
-                dashCounter = dashLength;
-                isDashing = true;
-                anim.SetTrigger("isDashing");
-
-                for(int i=0;i<trailEffects.Length;i++)
-                {
-                    trailEffects[i].SetActive(true);
-                }
-            }
-
-        }
-
-        if(dashCounter > 0)
-        {
-            dashCounter -= Time.deltaTime;
-            if(dashCounter <= 0)
-            {
-                activeMoveSpeed = moveSpeed;
-                isDashing = false;
-                dashCoolCounter = dashCooldown;
-                for (int i = 0; i < trailEffects.Length; i++)
-                {
-                    trailEffects[i].SetActive(false);
-                }
-            }
-        }
-
-        if(dashCoolCounter > 0)
-        {
-            dashCoolCounter -= Time.deltaTime;
-        }
+        Vector2 offset = new Vector2((mousePos.x) - screenPoint.x, (mousePos.y) - screenPoint.y);
+        float angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
+        bowArm.rotation = Quaternion.Euler(0, 0, angle);
 
         if (moveInput != Vector2.zero)
             anim.SetBool("isMoving", true);
         else
             anim.SetBool("isMoving", false);
-
-    }
-
-    //rotate bow arm
-    private void RotateBow(Vector3 mousePos, Vector3 screenPoint)
-    {
-        Vector2 offset = new Vector2((mousePos.x) - screenPoint.x, (mousePos.y) - screenPoint.y);
-        float angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
-        bowArm.rotation = Quaternion.Euler(0, 0, angle);
     }
 }

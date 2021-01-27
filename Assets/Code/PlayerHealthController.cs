@@ -12,12 +12,6 @@ public class PlayerHealthController : MonoBehaviour
 
     private float invCount;
 
-    public GameObject[] uiHealth;
-
-    public GameObject[] uiDamage;
-
-    public GameObject deathScreen;
-
     void Awake()
     {
         instance = this;
@@ -27,11 +21,7 @@ public class PlayerHealthController : MonoBehaviour
     {
         currentHealth = maxHealth;
 
-        for(int i=0;i<maxHealth;i++)
-        {
-            uiHealth[i].SetActive(true);
-            uiDamage[i].SetActive(false);
-        }
+        UIController.instance.UpdatePlayerHealth(maxHealth, currentHealth);
     }
 
     // Update is called once per frame
@@ -56,32 +46,12 @@ public class PlayerHealthController : MonoBehaviour
 
             PlayerController.instance.bodySprite.color = new Color(1f, 1f, 1f, 0.5f);
             PlayerController.instance.anim.SetTrigger("isHit");
-            UpdateUi();
+            UIController.instance.UpdatePlayerHealth(maxHealth, currentHealth);
 
             if (currentHealth <= 0)
             {
                 PlayerController.instance.gameObject.SetActive(false);
-                deathScreen.SetActive(true);
-            }
-        }
-    }
-
-    private void UpdateUi()
-    {
-        int damageNumber = 0;
-
-        for (int i = 0; i < maxHealth; i++)
-        {
-            if (i >= currentHealth)
-            {
-                uiHealth[i].SetActive(false);
-                uiDamage[damageNumber].SetActive(true);
-                damageNumber++;
-            }
-            else
-            {
-                uiHealth[i].SetActive(true);
-                uiDamage[i].SetActive(false);
+                UIController.instance.ActivateDeathScreen();
             }
         }
     }
@@ -89,7 +59,7 @@ public class PlayerHealthController : MonoBehaviour
     public void HealPlayer(int healAmount)
     {
         currentHealth += healAmount;
-        UpdateUi();
+        UIController.instance.UpdatePlayerHealth(maxHealth, currentHealth);
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;

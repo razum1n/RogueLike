@@ -33,6 +33,7 @@ public class EnemyController : MonoBehaviour
     public GameObject[] deathEffect;
 
     public int health = 150;
+    public int touchDamage = 1;
     public float enemyActivationRange;
     public SpriteRenderer theBody;
 
@@ -92,6 +93,14 @@ public class EnemyController : MonoBehaviour
             int selectedSplatter = Random.Range(0, deathEffect.Length);
 
             Instantiate(deathEffect[selectedSplatter], transform.position, transform.rotation);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "Player")
+        {
+            PlayerHealthController.instance.DamagePlayer();
         }
     }
 }
