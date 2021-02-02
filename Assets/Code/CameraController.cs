@@ -10,6 +10,8 @@ public class CameraController : MonoBehaviour
 
     public Transform target;
 
+    public bool isTransitioning = false;
+
 
     void Awake()
     {
@@ -27,6 +29,17 @@ public class CameraController : MonoBehaviour
     {
         if(target != null)
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(target.position.x,target.position.y,transform.position.z), moveSpeed * Time.deltaTime);
+
+        Debug.Log(Vector2.Distance(target.position, transform.position));
+
+        if(Vector2.Distance(transform.position,target.position) > 0)
+        {
+            PlayerController.instance.canMove = false;
+        }
+        else
+        {
+            PlayerController.instance.canMove = true;
+        }
     }
 
     public void ChangeTarget(Transform newTarget)
