@@ -12,6 +12,9 @@ public class CameraController : MonoBehaviour
 
     public bool isTransitioning = false;
 
+    public float xOffset = 0.5f;
+    public float yOffset = 0f;
+
 
     void Awake()
     {
@@ -28,18 +31,18 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         if(target != null)
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(target.position.x,target.position.y,transform.position.z), moveSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(target.position.x + xOffset,target.position.y+yOffset,transform.position.z), moveSpeed * Time.deltaTime);
 
         Debug.Log(Vector2.Distance(target.position, transform.position));
 
-        if(Vector2.Distance(transform.position,target.position) > 0)
-        {
-            PlayerController.instance.canMove = false;
-        }
-        else
-        {
-            PlayerController.instance.canMove = true;
-        }
+        //if(Vector2.Distance(transform.position,target.position) > 0)
+        //{
+        //    PlayerController.instance.canMove = false;
+        //}
+        //else
+        //{
+        //    PlayerController.instance.canMove = true;
+        //}
     }
 
     public void ChangeTarget(Transform newTarget)
