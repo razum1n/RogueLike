@@ -11,6 +11,8 @@ public class Room : MonoBehaviour
     [HideInInspector]
     public bool roomActive;
 
+    public GameObject roomHider;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +41,7 @@ public class Room : MonoBehaviour
         {
             CameraController.instance.ChangeTarget(transform);
             roomActive = true;
-
+            roomHider.SetActive(false);
             if(closeWhenEntered)
             {
                 foreach(GameObject door in doors)

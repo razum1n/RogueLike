@@ -102,8 +102,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1631688355
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: fe2e5bb921e0d9242a8c515daf40bb82, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -150,19 +150,25 @@ MonoBehaviour:
   rb: {fileID: 0}
   anim: {fileID: 3752931351175529655}
   enemy: 1
-  moveSpeed: 0
+  zombieChaseRange: 0
+  zombieMoveSpeed: 0
   shouldShoot: 0
-  fireRate: 3
+  demonActivationRange: 5
+  demonFireRate: 4
   fireBall: {fileID: 4473833901572389201, guid: 17ae6e7c286a3e44ba98b561769f7789,
     type: 3}
   firePoint: {fileID: 743794700606147987}
+  runningEnemySpeed: 0
+  runnerActivationRange: 0
+  runnerMoveSpeed: 0
   deathEffect:
   - {fileID: 7361587673140124057, guid: 7e487b67963616344836bb6334f2c715, type: 3}
   - {fileID: 7361587673140124057, guid: 7e487b67963616344836bb6334f2c715, type: 3}
   - {fileID: 7361587673140124057, guid: 7e487b67963616344836bb6334f2c715, type: 3}
   - {fileID: 7361587673140124057, guid: 7e487b67963616344836bb6334f2c715, type: 3}
   health: 150
-  enemyActivationRange: 7
+  touchDamage: 1
+  theBody: {fileID: 0}
 --- !u!50 &4403796840372892978
 Rigidbody2D:
   serializedVersion: 4

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class LevelGenerator : MonoBehaviour
 {
     public GameObject layoutRoom;
-    public Color startColor, endColor;
+    public Color startColor, endColor, currentColor;
     public int distanceToEnd;
     public Transform generatorPoint;
     public float xOffset = 18f;

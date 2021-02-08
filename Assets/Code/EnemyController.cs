@@ -11,30 +11,40 @@ public class EnemyController : MonoBehaviour
     public enum EnemyType
     {
         Zombie,
-        Demon
+        Demon,
+        Runner
     }
 
     public EnemyType enemy;
 
     #region Zombie Variables
-    
+    public float zombieChaseRange;
     private Vector3 moveDirection;
-    public float moveSpeed;
+    public float zombieMoveSpeed;
     #endregion
 
     #region Demon Variables
     public bool shouldShoot;
+    public float demonActivationRange;
     private float fireCounter;
-    public float fireRate;
+    public float demonFireRate;
     public GameObject fireBall;
     public Transform firePoint;
     #endregion
+
+
+    #region Runner Variables
+    public float runningEnemySpeed;
+    public float runnerActivationRange;
+    public float runnerMoveSpeed;
+    #endregion
+
+
 
     public GameObject[] deathEffect;
 
     public int health = 150;
     public int touchDamage = 1;
-    public float enemyActivationRange;
     public SpriteRenderer theBody;
 
     // Start is called before the first frame update
@@ -53,28 +63,36 @@ public class EnemyController : MonoBehaviour
             switch (enemy)
             {
                 case EnemyType.Zombie:
-                    if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) < enemyActivationRange)
+                    if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) < zombieChaseRange)
                     {
                         moveDirection = PlayerController.instance.transform.position - transform.position;
                     }
                     moveDirection.Normalize();
-                    rb.velocity = moveDirection * moveSpeed;
+                    rb.velocity = moveDirection * zombieMoveSpeed;
                     if (moveDirection != Vector3.zero)
                     {
                         anim.SetBool("isMoving", true);
                     }
                     break;
                 case EnemyType.Demon:
-                    if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) < enemyActivationRange && theBody.isVisible)
+                    if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) < demonActivationRange && theBody.isVisible)
                     {
                         fireCounter -= Time.deltaTime;
 
                         if (fireCounter <= 0)
                         {
-                            fireCounter = fireRate;
+                            fireCounter = demonFireRate;
                             Instantiate(fireBall, firePoint.position, firePoint.rotation);
                         }
                     }
+                    break;
+                case EnemyType.Runner:
+                    if(Vector3.Distance(transform.position,PlayerController.instance.transform.position)< runnerActivationRange)
+                    {
+                        moveDirection = transform.position - PlayerController.instance.transform.position;
+                    }
+                    moveDirection.Normalize();
+                    rb.velocity = moveDirection * runnerMoveSpeed;
                     break;
             }
         }
