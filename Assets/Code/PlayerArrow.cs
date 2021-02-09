@@ -31,18 +31,18 @@ public class PlayerArrow : MonoBehaviour
         {
             Instantiate(enemyImpactEffect, transform.position, transform.rotation);
             other.GetComponent<EnemyController>().DamageEnemy(damage);
-            Destroy(gameObject);
+            this.gameObject.SetActive(false);
         }
         else if(other.tag == "Untagged")
         {
             Instantiate(impactEffect, transform.position, transform.rotation);
-            Destroy(gameObject);
+            this.gameObject.SetActive(false);
         }
 
     }
 
     private void OnBecameInvisible()
     {
-        Destroy(gameObject);
+        this.gameObject.SetActive(false);
     }
 }

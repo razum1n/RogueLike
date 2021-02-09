@@ -177,10 +177,9 @@ public class LevelGenerator : MonoBehaviour
                     generatedOutlines.Add(Instantiate(rooms.fourway, roomPosition, transform.rotation));
                 break;
         }
-
-
     }
 }
+
 [System.Serializable]
 public class RoomPrefabs
 {

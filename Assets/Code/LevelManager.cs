@@ -14,7 +14,6 @@ public class LevelManager : MonoBehaviour
 
     public bool isPaused =false;
 
-
     void Awake()
     {
         instance = this;

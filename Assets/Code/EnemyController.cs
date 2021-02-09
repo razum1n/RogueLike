@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-
     public Rigidbody2D rb;
     public Animator anim;
 
@@ -32,14 +31,11 @@ public class EnemyController : MonoBehaviour
     public Transform firePoint;
     #endregion
 
-
     #region Runner Variables
     public float runningEnemySpeed;
     public float runnerActivationRange;
     public float runnerMoveSpeed;
     #endregion
-
-
 
     public GameObject[] deathEffect;
 
@@ -82,7 +78,14 @@ public class EnemyController : MonoBehaviour
                         if (fireCounter <= 0)
                         {
                             fireCounter = demonFireRate;
-                            Instantiate(fireBall, firePoint.position, firePoint.rotation);
+                            GameObject fireBall = Pool.instance.Get("EnemyFire");
+                            if (fireBall != null)
+                            {
+                                fireBall.transform.position = firePoint.position;
+                                fireBall.transform.rotation = firePoint.rotation;
+                                fireBall.SetActive(true);
+                                fireBall.GetComponent<EnemyAttack>().GetDirection();
+                            }
                         }
                     }
                     break;

@@ -4,19 +4,10 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-
     public float speed;
     private Vector3 direction;
 
     public GameObject hitEffect;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        direction = PlayerController.instance.transform.position - transform.position;
-        direction.Normalize();
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -36,12 +27,17 @@ public class EnemyAttack : MonoBehaviour
             PlayerHealthController.instance.DamagePlayer();
             Instantiate(hitEffect, transform.position, transform.rotation);
         }
+        this.gameObject.SetActive(false);
+    }
 
-        Destroy(gameObject);
+    public void GetDirection()
+    {
+        direction = PlayerController.instance.transform.position - transform.position;
+        direction.Normalize();
     }
 
     void OnBecameInvisible()
     {
-        Destroy(gameObject);
+        this.gameObject.SetActive(false);
     }
 }

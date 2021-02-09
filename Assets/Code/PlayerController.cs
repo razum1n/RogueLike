@@ -65,7 +65,13 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Instantiate(arrow, arrowSpawnPoint.position, arrowSpawnPoint.rotation);
+            GameObject arrow = Pool.instance.Get("PlayerArrow");
+            if (arrow != null)
+            {
+                arrow.transform.position = arrowSpawnPoint.position;
+                arrow.transform.rotation = arrowSpawnPoint.rotation;
+                arrow.SetActive(true);
+            }
             fireCount = fireRate;
         }
 
@@ -75,7 +81,13 @@ public class PlayerController : MonoBehaviour
 
             if (fireCount <= 0)
             {
-                Instantiate(arrow, arrowSpawnPoint.position, arrowSpawnPoint.rotation);
+                GameObject arrow = Pool.instance.Get("PlayerArrow");
+                if(arrow != null)
+                {
+                    arrow.transform.position = arrowSpawnPoint.position;
+                    arrow.transform.rotation = arrowSpawnPoint.rotation;
+                    arrow.SetActive(true);
+                }
                 fireCount = fireRate;
             }
         }
@@ -99,7 +111,6 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-
 
         if (dashCounter > 0)
         {
@@ -130,7 +141,6 @@ public class PlayerController : MonoBehaviour
         moveInput.Normalize();
 
         rb.velocity = moveInput * activeMoveSpeed;
-
 
         Vector3 mousePos = Input.mousePosition;
         Vector3 screenPoint = mainCamera.WorldToScreenPoint(transform.localPosition);
