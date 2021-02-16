@@ -28,6 +28,7 @@ public class EnemyController : MonoBehaviour
     private float fireCounter;
     public float demonFireRate;
     public GameObject fireBall;
+    public GameObject powerUp;
     public Transform firePoint;
     #endregion
 
@@ -78,14 +79,15 @@ public class EnemyController : MonoBehaviour
                         if (fireCounter <= 0)
                         {
                             fireCounter = demonFireRate;
-                            GameObject fireBall = Pool.instance.Get("EnemyFire");
-                            if (fireBall != null)
-                            {
-                                fireBall.transform.position = firePoint.position;
-                                fireBall.transform.rotation = firePoint.rotation;
-                                fireBall.SetActive(true);
-                                fireBall.GetComponent<EnemyAttack>().GetDirection();
-                            }
+                            powerUp.SetActive(true);
+                            //GameObject fireBall = Pool.instance.Get("EnemyFire");
+                            //if (fireBall != null)
+                            //{
+                            //    fireBall.transform.position = firePoint.position;
+                            //    fireBall.transform.rotation = firePoint.rotation;
+                            //    fireBall.SetActive(true);
+                            //    fireBall.GetComponent<EnemyAttack>().GetDirection();
+                            //}
                         }
                     }
                     break;

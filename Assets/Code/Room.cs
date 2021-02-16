@@ -5,6 +5,8 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     public bool closeWhenEntered;
+    public bool onlyVerticalEntry;
+    public bool onlyHorizontalEntry;
 
     public GameObject[] doors;
 

@@ -55,7 +55,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 20.98, y: 10.27}
+  m_Size: {x: 21.39, y: 11.9}
   m_EdgeRadius: 0
 --- !u!1 &5237825040332381729
 GameObject:
@@ -128,6 +128,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closeWhenEntered: 0
+  onlyVerticalEntry: 1
+  onlyHorizontalEntry: 0
   doors: []
   roomActive: 0
   roomHider: {fileID: 3581133191029758851}

@@ -22,6 +22,8 @@ public class LevelGenerator : MonoBehaviour
 
     public RoomCenter centerStart, centerEnd;
     public RoomCenter[] potentialCenters;
+    public RoomCenter[] verticalCenters;
+    public RoomCenter[] horizontalCenters;
 
     // Start is called before the first frame update
     void Start()
@@ -75,9 +77,24 @@ public class LevelGenerator : MonoBehaviour
 
             if(generateCenter)
             {
-                int centerSelected = Random.Range(0, potentialCenters.Length);
+               
 
-                Instantiate(potentialCenters[centerSelected], outline.transform.position, transform.rotation).room = outline.GetComponent<Room>();
+                if(outline.GetComponent<Room>().onlyHorizontalEntry)
+                {
+                    int centerSelected = Random.Range(0, horizontalCenters.Length);
+                    Instantiate(horizontalCenters[centerSelected], outline.transform.position, transform.rotation).room = outline.GetComponent<Room>();
+                }
+                else if(outline.GetComponent<Room>().onlyVerticalEntry)
+                {
+                    int centerSelected = Random.Range(0, verticalCenters.Length);
+                    Instantiate(verticalCenters[centerSelected], outline.transform.position, transform.rotation).room = outline.GetComponent<Room>();
+                }
+                else
+                {
+                    int centerSelected = Random.Range(0, potentialCenters.Length);
+                    Instantiate(potentialCenters[centerSelected], outline.transform.position, transform.rotation).room = outline.GetComponent<Room>();
+                }
+                
             }
            
         }
