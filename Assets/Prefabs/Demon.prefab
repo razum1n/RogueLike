@@ -177,9 +177,9 @@ MonoBehaviour:
   runnerMoveSpeed: 0
   deathEffect:
   - {fileID: 7361587673140124057, guid: 7e487b67963616344836bb6334f2c715, type: 3}
-  - {fileID: 7361587673140124057, guid: 7e487b67963616344836bb6334f2c715, type: 3}
-  - {fileID: 7361587673140124057, guid: 7e487b67963616344836bb6334f2c715, type: 3}
-  - {fileID: 7361587673140124057, guid: 7e487b67963616344836bb6334f2c715, type: 3}
+  - {fileID: 861695203842785449, guid: a16e8eb6d7ada0643b86b0fc7ea534d1, type: 3}
+  - {fileID: 2520755809271631960, guid: b83c338af94b56c4ebdd50b6fbbb1247, type: 3}
+  - {fileID: 911290701403219961, guid: aeb21d3c164817844b6bbe78b29bc1df, type: 3}
   health: 150
   touchDamage: 1
   theBody: {fileID: 0}
