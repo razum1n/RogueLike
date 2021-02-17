@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour
 
     public static LevelManager instance;
 
-    public float waitToLoad = 4f;
+    public float waitToLoad = 2f;
 
     public string nextLevel;
 
@@ -16,7 +16,9 @@ public class LevelManager : MonoBehaviour
 
     void Awake()
     {
-        instance = this;
+        if(instance == null)
+            instance = this;
+
     }
 
     // Start is called before the first frame update
@@ -42,7 +44,9 @@ public class LevelManager : MonoBehaviour
 
         yield return new WaitForSeconds(waitToLoad);
 
-        SceneManager.LoadScene(nextLevel);
+        //PlayerStats.instance.currentHealth = PlayerHealthController.instance.currentHealth;
+
+        UIController.instance.levelEndScreen.SetActive(true);
     }
 
     public void PauseUnpause()
@@ -64,4 +68,10 @@ public class LevelManager : MonoBehaviour
             Time.timeScale = 1f;
         }
     }
+
+    public void LoadNextLevel()
+    {
+        SceneManager.LoadScene(nextLevel);
+    }
+
 }

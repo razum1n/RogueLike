@@ -76,8 +76,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layoutRoom: {fileID: 7999821158825178194, guid: a738eb471e7d3174e9b7a0e551f63954,
     type: 3}
-  startColor: {r: 1, g: 0, b: 0, a: 1}
-  endColor: {r: 0.023584902, g: 1, b: 0.17004633, a: 1}
+  startColor: {r: 0, g: 0.0963881, b: 1, a: 1}
+  endColor: {r: 0.8018868, g: 0.13218568, b: 0, a: 1}
+  currentColor: {r: 0, g: 1, b: 0.0593791, a: 0}
   distanceToEnd: 10
   generatorPoint: {fileID: 1026001652086344420}
   xOffset: 21
@@ -123,4 +124,10 @@ MonoBehaviour:
     type: 3}
   potentialCenters:
   - {fileID: 8573542949659385821, guid: b1ec0c708e850b147afe355b39dda4bd, type: 3}
-  - {fileID: 1349439942807581221, guid: 397001edf968d294e95643445b584fc4, type: 3}
+  - {fileID: 1113588320557291688, guid: 5ba36239ebe5df84db82cf37c2c3be7c, type: 3}
+  verticalCenters:
+  - {fileID: 8723345262123201053, guid: 24b02bbf8b91865459d61d2b90ef2bb5, type: 3}
+  - {fileID: 4951736743268946840, guid: e92f52eaf8f5a214cbdb6ae6142b6446, type: 3}
+  horizontalCenters:
+  - {fileID: 2049082981862019729, guid: b277892ce5ba9f845a7a7727848c06e3, type: 3}
+  - {fileID: 703699940306341936, guid: e344491a43e49064b9ce2eadc5ed870d, type: 3}

@@ -10,6 +10,7 @@ public class UIController : MonoBehaviour
 
     public GameObject deathScreen;
     public GameObject pauseMenu;
+    public GameObject levelEndScreen;
 
     public Image fadeScreen;
     public float fadeSpeed;
@@ -100,5 +101,36 @@ public class UIController : MonoBehaviour
     public void ActivateDeathScreen()
     {
         deathScreen.SetActive(true);
+    }
+
+    public void HealPlayer()
+    {
+        if(PlayerStats.instance.currentHealth < PlayerHealthController.instance.maxHealth)
+        {
+            PlayerStats.instance.currentHealth += 1;
+            LevelManager.instance.LoadNextLevel();
+        }
+    }
+
+    public void UpgradeSpeed()
+    {
+        PlayerStats.instance.playerSpeed += 0.5f;
+        LevelManager.instance.LoadNextLevel();
+    }
+
+    public void UpgradeDamage()
+    {
+        if (PlayerStats.instance.playerArrow == "ArrowOne")
+        {
+            PlayerStats.instance.playerArrow = "ArrowTwo";
+            LevelManager.instance.LoadNextLevel();
+        }
+        else if (PlayerController.instance.arrowType == "ArrowTwo")
+        {
+            PlayerStats.instance.playerArrow = "ArrowThree";
+            LevelManager.instance.LoadNextLevel();
+        }
+        else
+            Debug.Log("Can't upgrade arrows further");
     }
 }

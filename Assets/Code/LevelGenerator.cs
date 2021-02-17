@@ -53,6 +53,7 @@ public class LevelGenerator : MonoBehaviour
             }
         }
         CreateRoomOutline(Vector3.zero);
+        //generatedOutlines[0].GetComponent<Room>().roomHider.SetActive(false);
         foreach(GameObject room in layoutRoomObjects)
         {
             CreateRoomOutline(room.transform.position);

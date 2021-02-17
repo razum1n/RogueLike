@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     private Camera mainCamera;
     public Animator anim;
 
-    public GameObject arrow;
+    public string arrowType;
 
     public GameObject[] trailEffects;
 
@@ -43,6 +43,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        arrowType = PlayerStats.instance.playerArrow;
+        moveSpeed = PlayerStats.instance.playerSpeed;
         rb = GetComponent<Rigidbody2D>();
         mainCamera = Camera.main;
         anim = GetComponent<Animator>();
@@ -65,7 +67,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            GameObject arrow = Pool.instance.Get("PlayerArrow");
+            GameObject arrow = Pool.instance.Get(arrowType);
             if (arrow != null)
             {
                 arrow.transform.position = arrowSpawnPoint.position;
@@ -81,7 +83,7 @@ public class PlayerController : MonoBehaviour
 
             if (fireCount <= 0)
             {
-                GameObject arrow = Pool.instance.Get("PlayerArrow");
+                GameObject arrow = Pool.instance.Get(arrowType);
                 if(arrow != null)
                 {
                     arrow.transform.position = arrowSpawnPoint.position;

@@ -6,9 +6,11 @@ TagManager:
   tags:
   - Enemy
   - Object
-  - PlayerArrow
   - EndChest
   - EnemyFire
+  - ArrowOne
+  - ArrowTwo
+  - ArrowThree
   layers:
   - Default
   - TransparentFX
