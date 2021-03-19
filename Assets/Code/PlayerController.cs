@@ -23,17 +23,22 @@ public class PlayerController : MonoBehaviour
 
     public Transform bowArm;
     public Transform arrowSpawnPoint;
+    public Transform trailPosition;
 
     private Camera mainCamera;
+    private Vector3 screenPoint;
+    private Vector2 offset;
+    private float angle;
     public Animator anim;
 
     public string arrowType;
 
-    public GameObject[] trailEffects;
-
     public SpriteRenderer bodySprite;
 
     public bool canMove = true;
+
+    public enum ControlType { Controller, Keyboard};
+    public ControlType inputType;
 
     void Awake()
     {
@@ -65,7 +70,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleShooting()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetButtonDown("Fire"))
         {
             GameObject arrow = Pool.instance.Get(arrowType);
             if (arrow != null)
@@ -77,7 +82,7 @@ public class PlayerController : MonoBehaviour
             fireCount = fireRate;
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetButton("Fire"))
         {
             fireCount -= Time.deltaTime;
 
@@ -97,7 +102,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleDashing()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Dash"))
         {
             if (dashCoolCounter <= 0 && dashCounter <= 0)
             {
@@ -105,11 +110,6 @@ public class PlayerController : MonoBehaviour
                 dashCounter = dashLength;
                 isDashing = true;
                 anim.SetTrigger("isDashing");
-
-                for (int i = 0; i < trailEffects.Length; i++)
-                {
-                    trailEffects[i].SetActive(true);
-                }
             }
 
         }
@@ -122,10 +122,6 @@ public class PlayerController : MonoBehaviour
                 activeMoveSpeed = moveSpeed;
                 isDashing = false;
                 dashCoolCounter = dashCooldown;
-                for (int i = 0; i < trailEffects.Length; i++)
-                {
-                    trailEffects[i].SetActive(false);
-                }
             }
         }
 
@@ -144,24 +140,48 @@ public class PlayerController : MonoBehaviour
 
         rb.velocity = moveInput * activeMoveSpeed;
 
-        Vector3 mousePos = Input.mousePosition;
-        Vector3 screenPoint = mainCamera.WorldToScreenPoint(transform.localPosition);
-
-        if (mousePos.x < screenPoint.x)
+        switch(inputType)
         {
-            transform.localScale = new Vector3(-1f, 1f, 1f);
-            bowArm.localScale = new Vector3(-1f, -1f, 1f);
-        }
-        else
-        {
-            transform.localScale = Vector3.one;
-            bowArm.localScale = Vector3.one;
-        }
+            case ControlType.Controller:
+                Vector3 controlAimPoint = new Vector3(Input.GetAxisRaw("RightHoriz"), Input.GetAxisRaw("RightVert"), 0);
+                Debug.Log(controlAimPoint);
+                if (controlAimPoint.x < 0)
+                {
+                    transform.localScale = new Vector3(-1f, 1f, 1f);
+                    trailPosition.localScale = new Vector3(-1f, 1f, 1f);
+                    bowArm.localScale = new Vector3(-1f, -1f, 1f);
+                }
+                else if(controlAimPoint.x > 0)
+                {
+                    transform.localScale = Vector3.one;
+                    trailPosition.localScale = Vector3.one;
+                    bowArm.localScale = Vector3.one;
+                }
+                angle = Mathf.Atan2(-controlAimPoint.y, controlAimPoint.x) * Mathf.Rad2Deg;
+                bowArm.rotation = Quaternion.Euler(0, 0, angle);
+                break;
+            case ControlType.Keyboard:
+                Vector3 mousePos = Input.mousePosition;
+                screenPoint = mainCamera.WorldToScreenPoint(transform.localPosition);
 
-        Vector2 offset = new Vector2((mousePos.x) - screenPoint.x, (mousePos.y) - screenPoint.y);
-        float angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
-        bowArm.rotation = Quaternion.Euler(0, 0, angle);
-
+                if (mousePos.x < screenPoint.x)
+                {
+                    transform.localScale = new Vector3(-1f, 1f, 1f);
+                    trailPosition.localScale = new Vector3(-1f, 1f, 1f);
+                    bowArm.localScale = new Vector3(-1f, -1f, 1f);
+                }
+                else
+                {
+                    transform.localScale = Vector3.one;
+                    trailPosition.localScale = Vector3.one;
+                    bowArm.localScale = Vector3.one;
+                }
+                offset = new Vector2((mousePos.x) - screenPoint.x, (mousePos.y) - screenPoint.y);
+                angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
+                bowArm.rotation = Quaternion.Euler(0, 0, angle);
+                break;
+        }
+       
         if (moveInput != Vector2.zero)
             anim.SetBool("isMoving", true);
         else

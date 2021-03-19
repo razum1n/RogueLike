@@ -11,6 +11,7 @@ public class UIController : MonoBehaviour
     public GameObject deathScreen;
     public GameObject pauseMenu;
     public GameObject levelEndScreen;
+    public GameObject settingsMenu;
 
     public Image fadeScreen;
     public float fadeSpeed;
@@ -132,5 +133,16 @@ public class UIController : MonoBehaviour
         }
         else
             Debug.Log("Can't upgrade arrows further");
+    }
+
+    public void SettingsToggle()
+    {
+        settingsMenu.SetActive(!settingsMenu.activeSelf);
+        pauseMenu.SetActive(!pauseMenu.activeSelf);
+    }
+
+    public void ResumePlay()
+    {
+        LevelManager.instance.PauseUnpause();
     }
 }

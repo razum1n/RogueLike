@@ -11,6 +11,7 @@ TagManager:
   - ArrowOne
   - ArrowTwo
   - ArrowThree
+  - DashEffect
   layers:
   - Default
   - TransparentFX

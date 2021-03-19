@@ -22,6 +22,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
+        GameManager.instance.gameState = GameManager.GameState.Level;
         SceneManager.LoadScene(levelToLoad);
     }
 
