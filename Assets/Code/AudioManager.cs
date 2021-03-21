@@ -6,7 +6,7 @@ public class AudioManager : MonoBehaviour
 {
 
     public static AudioManager instance;
-    public AudioClip fireSound;
+    public AudioClip uiSound, arrowSound, ogreSound;
 
     AudioSource audioSource;
 
@@ -17,13 +17,16 @@ public class AudioManager : MonoBehaviour
             instance = this;
         else if (instance != this)
             Destroy(gameObject);
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // Use this for initialization
     void Start()
     {
 
-        fireSound = Resources.Load<AudioClip>("fireSound");
+        uiSound = Resources.Load<AudioClip>("uiSound");
+        arrowSound = Resources.Load<AudioClip>("arrowSound");
+        ogreSound = Resources.Load<AudioClip>("ogreSound");
 
         audioSource = GetComponent<AudioSource>();
     }
@@ -32,9 +35,16 @@ public class AudioManager : MonoBehaviour
     {
         switch (clip)
         {
-            case "fire":
-                audioSource.PlayOneShot(fireSound);
+            case "uiClick":
+                audioSource.PlayOneShot(uiSound);
                 break;
+            case "arrow":
+                audioSource.PlayOneShot(arrowSound);
+                break;
+            case "ogreHit":
+                audioSource.PlayOneShot(ogreSound);
+                break;
+
         }
     }
 }

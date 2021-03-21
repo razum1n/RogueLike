@@ -109,6 +109,9 @@ public class EnemyController : MonoBehaviour
     {
         health -= damage;
 
+        if (enemy == EnemyType.Zombie)
+            AudioManager.instance.PlaySound("ogreHit");
+
         if(health <= 0)
         {
             Destroy(gameObject);

@@ -10,7 +10,11 @@ public class GameManager : MonoBehaviour
     public enum GameState {MainMenu, Level};
     public GameState gameState;
 
-    // Start is called before the first frame update
+    public int playerScore, currentHealth;
+    public string playerArrow;
+    public float playerSpeed;
+    public int playerControlType;
+
     void Awake()
     {
         if (instance == null)
@@ -18,6 +22,8 @@ public class GameManager : MonoBehaviour
         else if (instance != this)
             Destroy(gameObject);
         gameState = GameState.MainMenu;
+        DontDestroyOnLoad(this.gameObject);
+        playerControlType = 0;
     }
 
     // Update is called once per frame

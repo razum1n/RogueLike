@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
     public bool canMove = true;
 
-    public enum ControlType { Controller, Keyboard};
+    public enum ControlType { Keyboard, Controller };
     public ControlType inputType;
 
     void Awake()
@@ -48,12 +48,13 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        arrowType = PlayerStats.instance.playerArrow;
-        moveSpeed = PlayerStats.instance.playerSpeed;
+        arrowType = GameManager.instance.playerArrow;
+        moveSpeed = GameManager.instance.playerSpeed;
         rb = GetComponent<Rigidbody2D>();
         mainCamera = Camera.main;
         anim = GetComponent<Animator>();
         activeMoveSpeed = moveSpeed;
+        inputType = (ControlType)GameManager.instance.playerControlType;
     }
 
     // Update is called once per frame
@@ -78,6 +79,7 @@ public class PlayerController : MonoBehaviour
                 arrow.transform.position = arrowSpawnPoint.position;
                 arrow.transform.rotation = arrowSpawnPoint.rotation;
                 arrow.SetActive(true);
+                AudioManager.instance.PlaySound("arrow");
             }
             fireCount = fireRate;
         }
@@ -94,6 +96,7 @@ public class PlayerController : MonoBehaviour
                     arrow.transform.position = arrowSpawnPoint.position;
                     arrow.transform.rotation = arrowSpawnPoint.rotation;
                     arrow.SetActive(true);
+                    AudioManager.instance.PlaySound("arrow");
                 }
                 fireCount = fireRate;
             }

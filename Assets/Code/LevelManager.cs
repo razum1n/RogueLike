@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour
 
     public static LevelManager instance;
 
-    public float waitToLoad = 2f;
+    public float waitToLoad = 1f;
 
     public string nextLevel;
 
@@ -43,8 +43,7 @@ public class LevelManager : MonoBehaviour
         UIController.instance.StartFadeToBlack();
 
         yield return new WaitForSeconds(waitToLoad);
-
-        //PlayerStats.instance.currentHealth = PlayerHealthController.instance.currentHealth;
+        GameManager.instance.currentHealth = PlayerHealthController.instance.currentHealth;
 
         UIController.instance.levelEndScreen.SetActive(true);
     }

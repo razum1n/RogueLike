@@ -91,11 +91,13 @@ public class UIController : MonoBehaviour
 
     public void Quit()
     {
+        AudioManager.instance.PlaySound("uiClick");
         Application.Quit();
     }
 
     public void ReturnToMainMenu()
     {
+        AudioManager.instance.PlaySound("uiClick");
         Time.timeScale = 1f;
         SceneManager.LoadScene(mainMenuScreen);
     }
@@ -106,29 +108,29 @@ public class UIController : MonoBehaviour
 
     public void HealPlayer()
     {
-        if(PlayerStats.instance.currentHealth < PlayerHealthController.instance.maxHealth)
+        if(PlayerHealthController.instance.currentHealth < PlayerHealthController.instance.maxHealth)
         {
-            PlayerStats.instance.currentHealth += 1;
+            GameManager.instance.currentHealth += 1;
             LevelManager.instance.LoadNextLevel();
         }
     }
 
     public void UpgradeSpeed()
     {
-        PlayerStats.instance.playerSpeed += 0.5f;
+        GameManager.instance.playerSpeed += 0.5f;
         LevelManager.instance.LoadNextLevel();
     }
 
     public void UpgradeDamage()
     {
-        if (PlayerStats.instance.playerArrow == "ArrowOne")
+        if (GameManager.instance.playerArrow == "ArrowOne")
         {
-            PlayerStats.instance.playerArrow = "ArrowTwo";
+            GameManager.instance.playerArrow = "ArrowTwo";
             LevelManager.instance.LoadNextLevel();
         }
         else if (PlayerController.instance.arrowType == "ArrowTwo")
         {
-            PlayerStats.instance.playerArrow = "ArrowThree";
+            GameManager.instance.playerArrow = "ArrowThree";
             LevelManager.instance.LoadNextLevel();
         }
         else
@@ -137,12 +139,14 @@ public class UIController : MonoBehaviour
 
     public void SettingsToggle()
     {
+        AudioManager.instance.PlaySound("uiClick");
         settingsMenu.SetActive(!settingsMenu.activeSelf);
         pauseMenu.SetActive(!pauseMenu.activeSelf);
     }
 
     public void ResumePlay()
     {
+        AudioManager.instance.PlaySound("uiClick");
         LevelManager.instance.PauseUnpause();
     }
 }
