@@ -30,12 +30,6 @@ public class MainMenu : MonoBehaviour
         dropdown.onValueChanged.AddListener(delegate { DropdownItemSelected(dropdown); });
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void StartGame()
     {
         AudioManager.instance.PlaySound("uiClick");

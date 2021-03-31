@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/TitleMenu.unity
     guid: f28a2d0d49d575a4fbd01680691c0623
   - enabled: 1
-    path: Assets/Scenes/NewGameScene.unity
+    path: Assets/Scenes/Level 1.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/EndGameScreen.unity
@@ -21,6 +21,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Level 3.unity
     guid: f396341a9f73fec43ad5828ec3ea1e3f
   - enabled: 1
-    path: Assets/Scenes/Level 4.unity
+    path: Assets/Scenes/Boss Level.unity
     guid: 4ab3dbe7da9c0774cadec46d30650fd7
   m_configObjects: {}

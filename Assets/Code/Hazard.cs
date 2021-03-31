@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Hazard : MonoBehaviour
 {
-
     public float speed;
     public Transform[] movePoints;
     private int currentMovePoint = 0;
+    public bool activeHazard;
 
     Vector3 moveDirection;
 
@@ -20,23 +20,25 @@ public class Hazard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        transform.position += moveDirection * speed * Time.deltaTime;
-        if (moveDirection != Vector3.zero)
+        if(activeHazard)
         {
-            float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        }
-
-        if (Vector3.Distance(transform.position, movePoints[currentMovePoint].position) < .5f)
-        {
-            
-            currentMovePoint++;
-            if (currentMovePoint >= movePoints.Length)
+            transform.position += moveDirection * speed * Time.deltaTime;
+            if (moveDirection != Vector3.zero)
             {
-                currentMovePoint = 0;
+                float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             }
-            moveDirection = movePoints[currentMovePoint].position - transform.position;
+
+            if (Vector3.Distance(transform.position, movePoints[currentMovePoint].position) < .5f)
+            {
+
+                currentMovePoint++;
+                if (currentMovePoint >= movePoints.Length)
+                {
+                    currentMovePoint = 0;
+                }
+                moveDirection = movePoints[currentMovePoint].position - transform.position;
+            }
         }
     }
 

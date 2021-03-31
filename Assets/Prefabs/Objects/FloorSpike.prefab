@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8076219649235384036}
   - component: {fileID: 8735251473900954304}
   - component: {fileID: 8548574466793990217}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: FloorSpike
   m_TagString: Untagged
   m_Icon: {fileID: 0}

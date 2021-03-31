@@ -12,6 +12,8 @@ TagManager:
   - ArrowTwo
   - ArrowThree
   - DashEffect
+  - Key
+  - Hazard
   layers:
   - Default
   - TransparentFX
@@ -28,8 +30,8 @@ TagManager:
   - Hazard
   - Ignore Bullets
   - RoomLayout
-  - 
-  - 
+  - Ignore Spikes
+  - Spike
   - 
   - 
   - 

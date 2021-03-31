@@ -6,7 +6,8 @@ public class AudioManager : MonoBehaviour
 {
 
     public static AudioManager instance;
-    public AudioClip uiSound, arrowSound, ogreSound;
+    private float currentVolume;
+    public AudioClip uiSound, arrowSound, ogreSound, arrowMiss;
 
     AudioSource audioSource;
 
@@ -27,24 +28,31 @@ public class AudioManager : MonoBehaviour
         uiSound = Resources.Load<AudioClip>("uiSound");
         arrowSound = Resources.Load<AudioClip>("arrowSound");
         ogreSound = Resources.Load<AudioClip>("ogreSound");
+        arrowMiss = Resources.Load<AudioClip>("arrowMiss");
 
         audioSource = GetComponent<AudioSource>();
     }
 
     public void PlaySound(string clip)
     {
+        currentVolume = audioSource.volume;
         switch (clip)
         {
             case "uiClick":
                 audioSource.PlayOneShot(uiSound);
                 break;
             case "arrow":
+                audioSource.volume /= 2;
                 audioSource.PlayOneShot(arrowSound);
                 break;
             case "ogreHit":
                 audioSource.PlayOneShot(ogreSound);
                 break;
+            case "arrowMiss":
+                audioSource.PlayOneShot(arrowMiss);
+                break;
 
         }
+        audioSource.volume = currentVolume;
     }
 }

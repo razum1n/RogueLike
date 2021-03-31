@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     public enum GameState {MainMenu, Level};
     public GameState gameState;
-
+    public List<GameObject> stageEnemies = new List<GameObject>();
     public int playerScore, currentHealth;
     public string playerArrow;
     public float playerSpeed;
@@ -30,5 +30,11 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void GenerateKey()
+    {
+        int enemyWithKey = Random.Range(0, stageEnemies.Count);
+        stageEnemies[enemyWithKey].GetComponent<EnemyController>().hasKey = true;
     }
 }

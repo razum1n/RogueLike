@@ -55,7 +55,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 21.39, y: 11.9}
+  m_Size: {x: 20.96, y: 10.3}
   m_EdgeRadius: 0
 --- !u!1 &5947369611809197834
 GameObject:
@@ -128,9 +128,10 @@ MonoBehaviour:
   closeWhenEntered: 0
   onlyVerticalEntry: 1
   onlyHorizontalEntry: 0
-  doors: []
+  noEnemies: 0
   roomActive: 0
   roomHider: {fileID: 3066939780824521478}
+  center: {fileID: 0}
 --- !u!1 &5947369612115264111
 GameObject:
   m_ObjectHideFlags: 0

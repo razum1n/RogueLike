@@ -23,7 +23,18 @@ public class LevelExit : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            StartCoroutine(LevelManager.instance.LevelEnd());
+            if (other.GetComponent<PlayerController>().hasKey)
+                StartCoroutine(LevelManager.instance.LevelEnd());
+            else
+                UIController.instance.keyInfo.SetActive(true);
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            UIController.instance.keyInfo.SetActive(false);
         }
     }
 }

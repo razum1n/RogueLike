@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ public class UIController : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject levelEndScreen;
     public GameObject settingsMenu;
+    public GameObject keyInfo;
 
     public Image fadeScreen;
     public float fadeSpeed;
@@ -23,6 +25,8 @@ public class UIController : MonoBehaviour
     public GameObject[] uiHealth;
 
     public GameObject[] uiDamage;
+
+    public AudioMixer audioMixer;
 
     void Awake()
     {
@@ -148,5 +152,13 @@ public class UIController : MonoBehaviour
     {
         AudioManager.instance.PlaySound("uiClick");
         LevelManager.instance.PauseUnpause();
+    }
+
+    public void SetVolume(float volume)
+    {
+        audioMixer.SetFloat("Volume", volume);
+
+        if (volume < -45f)
+            audioMixer.SetFloat("Volume", -80f);
     }
 }

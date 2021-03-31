@@ -7,28 +7,13 @@ public class Room : MonoBehaviour
     public bool closeWhenEntered;
     public bool onlyVerticalEntry;
     public bool onlyHorizontalEntry;
-
-    public GameObject[] doors;
+    public bool noEnemies = false;
 
     [HideInInspector]
     public bool roomActive;
 
     public GameObject roomHider;
-
-    public void OpenDoors()
-    {
-        foreach (GameObject door in doors)
-        {
-            door.SetActive(false);
-
-            closeWhenEntered = false;
-        }
-    }
-
-    public void Start()
-    {
-
-    }
+    public RoomCenter center;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -37,13 +22,24 @@ public class Room : MonoBehaviour
             CameraController.instance.ChangeTarget(transform);
             roomActive = true;
             roomHider.SetActive(false);
-            if(closeWhenEntered)
+            if(noEnemies != true)
             {
-                foreach(GameObject door in doors)
+                for (int i = 0; i < center.enemies.Count; i++)
                 {
-                    door.SetActive(true);
+                    if (center.enemies[i] != null)
+                    {
+                        center.enemies[i].GetComponent<EnemyController>().enemyActive = true;
+                    }
+                }
+                for (int i = 0; i < center.hazards.Count; i++)
+                {
+                    if (center.hazards[i] != null)
+                    {
+                        center.hazards[i].GetComponent<Hazard>().activeHazard = true;
+                    }
                 }
             }
+
         }
     }
 

@@ -36,6 +36,7 @@ public class PlayerArrow : MonoBehaviour
         else if(other.tag == "Untagged")
         {
             Instantiate(impactEffect, transform.position, transform.rotation);
+            AudioManager.instance.PlaySound("arrowMiss");
             this.gameObject.SetActive(false);
         }
 

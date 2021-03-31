@@ -6,6 +6,7 @@ public class EnemyController : MonoBehaviour
 {
     public Rigidbody2D rb;
     public Animator anim;
+    public GameObject key;
 
     public enum EnemyType
     {
@@ -23,7 +24,6 @@ public class EnemyController : MonoBehaviour
     #endregion
 
     #region Demon Variables
-    public bool shouldShoot;
     public float demonActivationRange;
     private float fireCounter;
     public float demonFireRate;
@@ -39,7 +39,8 @@ public class EnemyController : MonoBehaviour
     #endregion
 
     public GameObject[] deathEffect;
-
+    public bool enemyActive;
+    public bool hasKey = false;
     public int health = 150;
     public int touchDamage = 1;
     public SpriteRenderer theBody;
@@ -55,7 +56,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(PlayerController.instance.gameObject.activeInHierarchy)
+        if(PlayerController.instance.gameObject.activeInHierarchy && enemyActive)
         {
             switch (enemy)
             {
@@ -80,14 +81,6 @@ public class EnemyController : MonoBehaviour
                         {
                             fireCounter = demonFireRate;
                             powerUp.SetActive(true);
-                            //GameObject fireBall = Pool.instance.Get("EnemyFire");
-                            //if (fireBall != null)
-                            //{
-                            //    fireBall.transform.position = firePoint.position;
-                            //    fireBall.transform.rotation = firePoint.rotation;
-                            //    fireBall.SetActive(true);
-                            //    fireBall.GetComponent<EnemyAttack>().GetDirection();
-                            //}
                         }
                     }
                     break;
@@ -109,16 +102,18 @@ public class EnemyController : MonoBehaviour
     {
         health -= damage;
 
-        if (enemy == EnemyType.Zombie)
-            AudioManager.instance.PlaySound("ogreHit");
+        AudioManager.instance.PlaySound("ogreHit");
 
         if(health <= 0)
         {
-            Destroy(gameObject);
-
             int selectedSplatter = Random.Range(0, deathEffect.Length);
 
             Instantiate(deathEffect[selectedSplatter], transform.position, transform.rotation);
+
+            if(hasKey)
+                Instantiate(key, transform.position, transform.rotation);
+
+            Destroy(gameObject);
         }
     }
 

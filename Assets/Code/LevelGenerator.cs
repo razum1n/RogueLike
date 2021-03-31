@@ -24,6 +24,7 @@ public class LevelGenerator : MonoBehaviour
     public RoomCenter[] potentialCenters;
     public RoomCenter[] verticalCenters;
     public RoomCenter[] horizontalCenters;
+    private RoomCenter currentCenter;
 
     // Start is called before the first frame update
     void Start()
@@ -53,7 +54,6 @@ public class LevelGenerator : MonoBehaviour
             }
         }
         CreateRoomOutline(Vector3.zero);
-        //generatedOutlines[0].GetComponent<Room>().roomHider.SetActive(false);
         foreach(GameObject room in layoutRoomObjects)
         {
             CreateRoomOutline(room.transform.position);
@@ -66,13 +66,15 @@ public class LevelGenerator : MonoBehaviour
 
             if(outline.transform.position == Vector3.zero)
             {
-                Instantiate(centerStart, outline.transform.position, transform.rotation).room = outline.GetComponent<Room>();
+                Room startRoom = Instantiate(centerStart, outline.transform.position, transform.rotation).room = outline.GetComponent<Room>();
+                startRoom.noEnemies = true;
                 generateCenter = false;
             }
 
             if(outline.transform.position == endRoom.transform.position)
             {
-                Instantiate(centerEnd, outline.transform.position, transform.rotation).room = outline.GetComponent<Room>();
+                Room endRoom = Instantiate(centerEnd, outline.transform.position, transform.rotation).room = outline.GetComponent<Room>();
+                endRoom.noEnemies = true;
                 generateCenter = false;
             }
 
@@ -83,22 +85,31 @@ public class LevelGenerator : MonoBehaviour
                 if(outline.GetComponent<Room>().onlyHorizontalEntry)
                 {
                     int centerSelected = Random.Range(0, horizontalCenters.Length);
-                    Instantiate(horizontalCenters[centerSelected], outline.transform.position, transform.rotation).room = outline.GetComponent<Room>();
+                    currentCenter = Instantiate(horizontalCenters[centerSelected], outline.transform.position, transform.rotation);
+                    currentCenter.room = outline.GetComponent<Room>();
+                    foreach (GameObject enemy in currentCenter.enemies)
+                        GameManager.instance.stageEnemies.Add(enemy);
                 }
                 else if(outline.GetComponent<Room>().onlyVerticalEntry)
                 {
                     int centerSelected = Random.Range(0, verticalCenters.Length);
-                    Instantiate(verticalCenters[centerSelected], outline.transform.position, transform.rotation).room = outline.GetComponent<Room>();
+                    currentCenter = Instantiate(verticalCenters[centerSelected], outline.transform.position, transform.rotation);
+                    currentCenter.room = outline.GetComponent<Room>();
+                    foreach (GameObject enemy in currentCenter.enemies)
+                        GameManager.instance.stageEnemies.Add(enemy);
                 }
                 else
                 {
                     int centerSelected = Random.Range(0, potentialCenters.Length);
-                    Instantiate(potentialCenters[centerSelected], outline.transform.position, transform.rotation).room = outline.GetComponent<Room>();
+                    currentCenter = Instantiate(potentialCenters[centerSelected], outline.transform.position, transform.rotation);
+                    currentCenter.room = outline.GetComponent<Room>();
+                    foreach (GameObject enemy in currentCenter.enemies)
+                        GameManager.instance.stageEnemies.Add(enemy);
                 }
-                
             }
            
         }
+        GameManager.instance.GenerateKey();
     }
 
     // Update is called once per frame

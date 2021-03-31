@@ -125,9 +125,15 @@ MonoBehaviour:
   potentialCenters:
   - {fileID: 8573542949659385821, guid: b1ec0c708e850b147afe355b39dda4bd, type: 3}
   - {fileID: 1113588320557291688, guid: 5ba36239ebe5df84db82cf37c2c3be7c, type: 3}
+  - {fileID: 8836387862611050725, guid: 4e5034105a509be45bd4e68b3e336787, type: 3}
+  - {fileID: 5211029476890490160, guid: 514e0847e9bcd8745921767a744416c7, type: 3}
   verticalCenters:
   - {fileID: 8723345262123201053, guid: 24b02bbf8b91865459d61d2b90ef2bb5, type: 3}
   - {fileID: 4951736743268946840, guid: e92f52eaf8f5a214cbdb6ae6142b6446, type: 3}
+  - {fileID: 2202368077916264563, guid: e39c91dac18de7848a41b9feb81cd59b, type: 3}
+  - {fileID: 4642395005229963976, guid: fadc83b8d17fd22498f5222387c569ac, type: 3}
   horizontalCenters:
   - {fileID: 2049082981862019729, guid: b277892ce5ba9f845a7a7727848c06e3, type: 3}
   - {fileID: 703699940306341936, guid: e344491a43e49064b9ce2eadc5ed870d, type: 3}
+  - {fileID: 4407767433120734925, guid: 4155d0ad901d8824ba06d73eb4ae1a69, type: 3}
+  - {fileID: 7358909257620040882, guid: ce1d8f8b9d5faf1408f8f6cce22f58de, type: 3}

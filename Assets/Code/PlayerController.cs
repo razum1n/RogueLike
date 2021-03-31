@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer bodySprite;
 
     public bool canMove = true;
+    public bool hasKey = false;
 
     public enum ControlType { Keyboard, Controller };
     public ControlType inputType;
@@ -154,7 +155,7 @@ public class PlayerController : MonoBehaviour
                     trailPosition.localScale = new Vector3(-1f, 1f, 1f);
                     bowArm.localScale = new Vector3(-1f, -1f, 1f);
                 }
-                else if(controlAimPoint.x > 0)
+                else if(controlAimPoint.x > 0.1f)
                 {
                     transform.localScale = Vector3.one;
                     trailPosition.localScale = Vector3.one;
