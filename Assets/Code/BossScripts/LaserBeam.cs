@@ -9,10 +9,17 @@ public class LaserBeam : MonoBehaviour
     public GameObject laserMiddle;
     public GameObject laserEnd;
 
+    public LayerMask ignoreLayer;
     private GameObject start;
+    private Collider2D boxCollider;
     private GameObject middle;
     private GameObject end;
+    public float timer;
+    private bool timerActive = true;
 
+    void Start()
+    {
+    }
     void Update()
     {
         // Create the laser start from the prefab
@@ -39,7 +46,7 @@ public class LaserBeam : MonoBehaviour
 
         // Raycast at the right as our sprite has been design for that
         Vector2 laserDirection = this.transform.up;
-        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, laserDirection, maxLaserSize);
+        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, laserDirection, maxLaserSize,ignoreLayer);
 
         if (hit.collider != null)
         {
@@ -80,5 +87,20 @@ public class LaserBeam : MonoBehaviour
             end.transform.localPosition = new Vector2(0f,currentLaserSize);
         }
 
+        if(timer > 0 && timerActive)
+        {
+            timer -= Time.deltaTime;
+        }
+        else if(timerActive)
+        {
+            ActivateCollider();
+            timerActive = false;
+        }
+    }
+
+    private void ActivateCollider()
+    {
+        boxCollider = middle.GetComponent<Collider2D>();
+        boxCollider.enabled = !boxCollider.enabled;
     }
 }

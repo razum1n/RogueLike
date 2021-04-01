@@ -83,4 +83,12 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.5833333
+    functionName: SetCollider
+    data: 
+    objectReferenceParameter: {fileID: 7289405931755831890, guid: ff6d4f829baf8ee459b366657945fdb8,
+      type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
