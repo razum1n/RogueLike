@@ -182,7 +182,7 @@ MonoBehaviour:
   fireRate: 0.2
   dashSpeed: 8
   dashLength: 0.5
-  dashCooldown: 1
+  dashCooldown: 0.7
   dashInvincibility: 0.5
   isDashing: 0
   rb: {fileID: 0}
@@ -193,6 +193,7 @@ MonoBehaviour:
   arrowType: ArrowOne
   bodySprite: {fileID: 7880624478380835591}
   canMove: 1
+  hasKey: 0
   inputType: 0
 --- !u!95 &7880624478380835590
 Animator:

@@ -14,11 +14,20 @@ public class LaserBeam : MonoBehaviour
     private Collider2D boxCollider;
     private GameObject middle;
     private GameObject end;
-    public float timer;
-    private bool timerActive = true;
+    public float startingTimer;
+    public float onTimer;
+    public float offTimer;
+    public float maxLaserSize = 20f;
+    private bool laserStarting = true;
+    private bool laserOn = false;
+    private bool laserOff = false;
+    private AudioSource audio;
 
     void Start()
     {
+        audio = gameObject.GetComponent<AudioSource>();
+        audio.clip = Resources.Load<AudioClip>("laserStart");
+        audio.Play();
     }
     void Update()
     {
@@ -41,7 +50,6 @@ public class LaserBeam : MonoBehaviour
         }
 
         // Define an "infinite" size, not too big but enough to go off screen
-        float maxLaserSize = 20f;
         float currentLaserSize = maxLaserSize;
 
         // Raycast at the right as our sprite has been design for that
@@ -87,14 +95,38 @@ public class LaserBeam : MonoBehaviour
             end.transform.localPosition = new Vector2(0f,currentLaserSize);
         }
 
-        if(timer > 0 && timerActive)
+        if(startingTimer > 0 && laserStarting)
         {
-            timer -= Time.deltaTime;
+            startingTimer -= Time.deltaTime;
         }
-        else if(timerActive)
+        else if(startingTimer <= 0 && laserStarting)
         {
             ActivateCollider();
-            timerActive = false;
+            laserStarting = false;
+            audio.Stop();
+            audio.clip = Resources.Load<AudioClip>("laserOn");
+            audio.Play();
+            laserOn = true;
+        }
+        else if(laserOn && onTimer > 0)
+        {
+            onTimer -= Time.deltaTime;
+        }
+        else if(onTimer <= 0 && laserOn)
+        {
+            ActivateCollider();
+            middle.GetComponent<Animator>().SetTrigger("laserEnd");
+            laserOn = false;
+            gameObject.GetComponent<AudioSource>().Stop();
+            laserOff = true;
+        }
+        else if(laserOff && offTimer > 0)
+        {
+            offTimer -= Time.deltaTime;
+        }
+        else if(laserOff && offTimer <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 

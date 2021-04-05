@@ -14,6 +14,7 @@ public class UIController : MonoBehaviour
     public GameObject levelEndScreen;
     public GameObject settingsMenu;
     public GameObject keyInfo;
+    public GameObject keyImg;
 
     public Image fadeScreen;
     public float fadeSpeed;

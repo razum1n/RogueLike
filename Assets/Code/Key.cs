@@ -9,6 +9,7 @@ public class Key : MonoBehaviour
         if(other.tag == "Player")
         {
             PlayerController.instance.hasKey = true;
+            UIController.instance.keyImg.SetActive(true);
             Destroy(gameObject);
         }
     }

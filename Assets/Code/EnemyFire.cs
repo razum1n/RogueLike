@@ -7,18 +7,6 @@ public class EnemyFire : MonoBehaviour
 
     GameObject fireBall;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void SpawnFireBall()
     {
         GameObject fireBall = Pool.instance.Get("EnemyFire");
@@ -28,6 +16,7 @@ public class EnemyFire : MonoBehaviour
             fireBall.transform.rotation = transform.rotation;
             fireBall.SetActive(true);
             fireBall.GetComponent<EnemyAttack>().GetDirection();
+            AudioManager.instance.PlaySound("fireball");
         }
         this.gameObject.SetActive(false);
     }

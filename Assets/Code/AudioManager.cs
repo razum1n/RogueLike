@@ -7,7 +7,7 @@ public class AudioManager : MonoBehaviour
 
     public static AudioManager instance;
     private float currentVolume;
-    public AudioClip uiSound, arrowSound, ogreSound, arrowMiss;
+    public AudioClip uiSound, arrowSound, ogreSound, arrowMiss, fireBall;
 
     AudioSource audioSource;
 
@@ -29,6 +29,7 @@ public class AudioManager : MonoBehaviour
         arrowSound = Resources.Load<AudioClip>("arrowSound");
         ogreSound = Resources.Load<AudioClip>("ogreSound");
         arrowMiss = Resources.Load<AudioClip>("arrowMiss");
+        fireBall = Resources.Load<AudioClip>("fireball");
 
         audioSource = GetComponent<AudioSource>();
     }
@@ -50,6 +51,9 @@ public class AudioManager : MonoBehaviour
                 break;
             case "arrowMiss":
                 audioSource.PlayOneShot(arrowMiss);
+                break;
+            case "fireball":
+                audioSource.PlayOneShot(fireBall);
                 break;
 
         }
