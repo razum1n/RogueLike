@@ -21,13 +21,14 @@ public class LaserBeam : MonoBehaviour
     private bool laserStarting = true;
     private bool laserOn = false;
     private bool laserOff = false;
-    private AudioSource audio;
+    private AudioSource audioSrc;
 
     void Start()
     {
-        audio = gameObject.GetComponent<AudioSource>();
-        audio.clip = Resources.Load<AudioClip>("laserStart");
-        audio.Play();
+        audioSrc = gameObject.GetComponent<AudioSource>();
+        audioSrc.clip = Resources.Load<AudioClip>("laserStart");
+        if(audioSrc.enabled)
+            audioSrc.Play();
     }
     void Update()
     {
@@ -103,9 +104,10 @@ public class LaserBeam : MonoBehaviour
         {
             ActivateCollider();
             laserStarting = false;
-            audio.Stop();
-            audio.clip = Resources.Load<AudioClip>("laserOn");
-            audio.Play();
+            audioSrc.Stop();
+            audioSrc.clip = Resources.Load<AudioClip>("laserOn");
+            if(audioSrc.enabled)
+                audioSrc.Play();
             laserOn = true;
         }
         else if(laserOn && onTimer > 0)

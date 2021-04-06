@@ -15,8 +15,10 @@ public class UIController : MonoBehaviour
     public GameObject settingsMenu;
     public GameObject keyInfo;
     public GameObject keyImg;
+    public GameObject bossHealth;
 
     public Image fadeScreen;
+    public Transform bossHealthBar;
     public float fadeSpeed;
     public bool fadeToBlack, fadeOutBlack;
 
@@ -161,5 +163,11 @@ public class UIController : MonoBehaviour
 
         if (volume < -45f)
             audioMixer.SetFloat("Volume", -80f);
+    }
+
+    public void SetBossHealth(float damage)
+    {
+        damage = Mathf.Clamp(damage, 0f, 1);
+        bossHealthBar.localScale = new Vector3(damage, 1, 1);
     }
 }
