@@ -148,7 +148,6 @@ public class PlayerController : MonoBehaviour
         {
             case ControlType.Controller:
                 Vector3 controlAimPoint = new Vector3(Input.GetAxisRaw("RightHoriz"), Input.GetAxisRaw("RightVert"), 0);
-                Debug.Log(controlAimPoint);
                 if (controlAimPoint.x < 0)
                 {
                     transform.localScale = new Vector3(-1f, 1f, 1f);

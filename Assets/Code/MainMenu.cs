@@ -34,6 +34,11 @@ public class MainMenu : MonoBehaviour
         Music.instance.ChangeTrack(1);
     }
 
+    void Update()
+    {
+
+    }
+
     public void StartGame()
     {
         AudioManager.instance.PlaySound("uiClick");

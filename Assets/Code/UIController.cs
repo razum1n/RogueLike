@@ -5,7 +5,6 @@ using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
-using TMPro.EditorUtilities;
 
 public class UIController : MonoBehaviour
 {
@@ -48,6 +47,7 @@ public class UIController : MonoBehaviour
         fadeOutBlack = true;
         fadeToBlack = false;
         timer.SetActive(GameManager.instance.showTimer);
+        scoreText.text = "Score: " + GameManager.instance.playerScore.ToString();
     }
 
     // Update is called once per frame
@@ -164,6 +164,8 @@ public class UIController : MonoBehaviour
     {
         AudioManager.instance.PlaySound("uiClick");
         LevelManager.instance.PauseUnpause();
+        if (settingsMenu.activeSelf)
+            settingsMenu.SetActive(false);
     }
 
     public void SetVolume(float volume)

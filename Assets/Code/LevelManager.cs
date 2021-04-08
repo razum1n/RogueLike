@@ -35,7 +35,7 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetButtonDown("Cancel"))
         {
             PauseUnpause();
         }
@@ -67,7 +67,7 @@ public class LevelManager : MonoBehaviour
         else
         {
             UIController.instance.pauseMenu.SetActive(false);
-
+            UIController.instance.settingsMenu.SetActive(false);
             isPaused = false;
 
             Time.timeScale = 1f;

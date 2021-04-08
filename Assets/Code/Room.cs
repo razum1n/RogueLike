@@ -45,9 +45,27 @@ public class Room : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
             roomActive = false;
+            if (noEnemies != true)
+            {
+                for (int i = 0; i < center.enemies.Count; i++)
+                {
+                    if (center.enemies[i] != null)
+                    {
+                        center.enemies[i].GetComponent<EnemyController>().enemyActive = false;
+                    }
+                }
+                for (int i = 0; i < center.hazards.Count; i++)
+                {
+                    if (center.hazards[i] != null)
+                    {
+                        center.hazards[i].GetComponent<Hazard>().activeHazard = false;
+                    }
+                }
+            }
+
         }
     }
 }
