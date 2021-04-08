@@ -4,27 +4,46 @@ using UnityEngine;
 
 public class Music : MonoBehaviour
 {
-    public AudioClip levelbg;
+    public static Music instance;
     AudioSource audioSrc;
+    public AudioClip bgMusic1,bgMusic2,bgMusic3;
 
+
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else if (instance != this)
+            Destroy(gameObject);
+        DontDestroyOnLoad(this.gameObject);
+    }
     // Use this for initialization
     void Start()
     {
-
         audioSrc = GetComponent<AudioSource>();
-        switch (GameManager.instance.gameState)
-        {
-            case GameManager.GameState.MainMenu:
-                levelbg = Resources.Load<AudioClip>("BGmusic1");
-                break;
+        bgMusic1 = Resources.Load<AudioClip>("BGmusic1");
+        bgMusic2 = Resources.Load<AudioClip>("BGmusic2");
+        bgMusic3 = Resources.Load<AudioClip>("BGmusic3");
+        audioSrc.loop = true;
+        audioSrc.Play();
+    }
 
-            case GameManager.GameState.Level:
-                levelbg = Resources.Load<AudioClip>("BGmusic2");
+    public void ChangeTrack(int track)
+    {
+        switch(track)
+        {
+            case 1:
+                audioSrc.clip = bgMusic1;
+                audioSrc.Play();
+                break;
+            case 2:
+                audioSrc.clip = bgMusic2;
+                audioSrc.Play();
+                break;
+            case 3:
+                audioSrc.clip = bgMusic3;
+                audioSrc.Play();
                 break;
         }
-        audioSrc.loop = true;
-        audioSrc.clip = levelbg;
-        audioSrc.Play();
-
     }
 }

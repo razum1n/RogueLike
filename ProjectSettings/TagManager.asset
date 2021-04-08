@@ -15,6 +15,7 @@ TagManager:
   - Key
   - Hazard
   - Laser
+  - Boss
   layers:
   - Default
   - TransparentFX

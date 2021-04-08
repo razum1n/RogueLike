@@ -10,6 +10,7 @@ public class Key : MonoBehaviour
         {
             PlayerController.instance.hasKey = true;
             UIController.instance.keyImg.SetActive(true);
+            AudioManager.instance.PlaySound("key");
             Destroy(gameObject);
         }
     }

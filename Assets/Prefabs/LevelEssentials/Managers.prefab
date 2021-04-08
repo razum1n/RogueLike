@@ -59,5 +59,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f176b15c80ff89e4f914b185614888b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitToLoad: 4
+  waitToLoad: 2
   nextLevel: 
+  isPaused: 0

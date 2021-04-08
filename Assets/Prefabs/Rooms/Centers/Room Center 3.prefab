@@ -2677,7 +2677,7 @@ PrefabInstance:
     - target: {fileID: 7396053370122785291, guid: 3701893e87514d24b9d76d0d5d2496c9,
         type: 3}
       propertyPath: zombieMoveSpeed
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7396053370122785329, guid: 3701893e87514d24b9d76d0d5d2496c9,
         type: 3}

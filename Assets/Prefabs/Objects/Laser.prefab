@@ -54,7 +54,7 @@ MonoBehaviour:
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 1
-  startingTimer: 2
+  startingTimer: 1
   onTimer: 3
   offTimer: 1
   maxLaserSize: 20

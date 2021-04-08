@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class FinalScreen : MonoBehaviour
 {
 
-    public float waitForAnyKey = 2f;
+    public float waitForAnyKey = 3f;
+    public TMP_Text finalScore;
+    public TMP_Text finalTime;
 
     public GameObject anyKeyText;
 
@@ -16,6 +19,8 @@ public class FinalScreen : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1f;
+        finalScore.text = "Final Score: " + GameManager.instance.playerScore.ToString();
+        finalTime.text = GameManager.instance.finalTime;
     }
 
     // Update is called once per frame

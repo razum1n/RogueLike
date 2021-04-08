@@ -7,7 +7,7 @@ public class AudioManager : MonoBehaviour
 
     public static AudioManager instance;
     private float currentVolume;
-    public AudioClip uiSound, arrowSound, ogreSound, arrowMiss, fireBall;
+    public AudioClip uiSound, arrowSound, ogreSound, arrowMiss, fireBall, keyPickUp, playerHit;
 
     AudioSource audioSource;
 
@@ -28,8 +28,10 @@ public class AudioManager : MonoBehaviour
         uiSound = Resources.Load<AudioClip>("uiSound");
         arrowSound = Resources.Load<AudioClip>("arrowSound");
         ogreSound = Resources.Load<AudioClip>("ogreSound");
+        playerHit = Resources.Load<AudioClip>("ogreSound");
         arrowMiss = Resources.Load<AudioClip>("arrowMiss");
         fireBall = Resources.Load<AudioClip>("fireball");
+        keyPickUp = Resources.Load<AudioClip>("keyPickUp");
 
         audioSource = GetComponent<AudioSource>();
     }
@@ -37,9 +39,11 @@ public class AudioManager : MonoBehaviour
     public void PlaySound(string clip)
     {
         currentVolume = audioSource.volume;
+        audioSource.pitch = 1f;
         switch (clip)
         {
             case "uiClick":
+                
                 audioSource.PlayOneShot(uiSound);
                 break;
             case "arrow":
@@ -49,11 +53,18 @@ public class AudioManager : MonoBehaviour
             case "ogreHit":
                 audioSource.PlayOneShot(ogreSound);
                 break;
+            case "PlayerHit":
+                audioSource.pitch = 1.5f;
+                audioSource.PlayOneShot(playerHit);
+                break;
             case "arrowMiss":
                 audioSource.PlayOneShot(arrowMiss);
                 break;
             case "fireball":
                 audioSource.PlayOneShot(fireBall);
+                break;
+            case "key":
+                audioSource.PlayOneShot(keyPickUp);
                 break;
 
         }

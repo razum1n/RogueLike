@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
+using TMPro.EditorUtilities;
 
 public class UIController : MonoBehaviour
 {
@@ -13,10 +15,15 @@ public class UIController : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject levelEndScreen;
     public GameObject settingsMenu;
+    public GameObject finalStats;
     public GameObject keyInfo;
     public GameObject keyImg;
     public GameObject bossHealth;
+    public GameObject timer;
 
+    public TMP_Text scoreText;
+    public TMP_Text finalScore;
+    public TMP_Text finalTime;
     public Image fadeScreen;
     public Transform bossHealthBar;
     public float fadeSpeed;
@@ -40,6 +47,7 @@ public class UIController : MonoBehaviour
     {
         fadeOutBlack = true;
         fadeToBlack = false;
+        timer.SetActive(GameManager.instance.showTimer);
     }
 
     // Update is called once per frame
@@ -51,6 +59,7 @@ public class UIController : MonoBehaviour
             if(fadeScreen.color.a <= 0f)
             {
                 fadeOutBlack = false;
+                
             }
         }
 
@@ -169,5 +178,10 @@ public class UIController : MonoBehaviour
     {
         damage = Mathf.Clamp(damage, 0f, 1);
         bossHealthBar.localScale = new Vector3(damage, 1, 1);
+    }
+
+    public void UpdateScoreText(int score)
+    {
+        scoreText.text = "Score: " + score.ToString();
     }
 }

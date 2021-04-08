@@ -7,12 +7,16 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
-    public enum GameState {MainMenu, Level};
+    public enum GameState {MainMenu, Level, Boss};
     public GameState gameState;
     public List<GameObject> stageEnemies = new List<GameObject>();
-    public int playerScore, currentHealth;
-    public string playerArrow;
-    public float playerSpeed;
+    public int playerScore = 0;
+    public int currentHealth = 5;
+    public string playerArrow = "ArrowOne";
+    public float playerSpeed = 4f;
+    public float timerValue = 0f;
+    public string finalTime;
+    public bool showTimer = true;
     public int playerControlType;
 
     void Awake()
@@ -26,15 +30,20 @@ public class GameManager : MonoBehaviour
         playerControlType = 0;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void GenerateKey()
     {
         int enemyWithKey = Random.Range(0, stageEnemies.Count);
         stageEnemies[enemyWithKey].GetComponent<EnemyController>().hasKey = true;
+    }
+
+    public void ResetGame()
+    {
+        playerScore = 0;
+        currentHealth = 5;
+        playerArrow = "ArrowOne";
+        playerSpeed = 4f;
+        timerValue = 0f;
+        stageEnemies.Clear();
+        gameState = GameState.MainMenu;
     }
 }

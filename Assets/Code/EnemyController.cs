@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -33,7 +34,8 @@ public class EnemyController : MonoBehaviour
 
     #region Necromancer Variables
     public float necrFireRate;
-    private float nextLaser;
+    private float nextLaser = 1.5f;
+    public float laserOnTime;
     public GameObject laserBeam;
     private GameObject currentLaser;
     public float offSet;
@@ -44,6 +46,7 @@ public class EnemyController : MonoBehaviour
     public bool enemyActive;
     public bool hasKey = false;
     public int health = 150;
+    public int score;
     public int touchDamage = 1;
     public SpriteRenderer theBody;
 
@@ -69,10 +72,17 @@ public class EnemyController : MonoBehaviour
                     }
                     moveDirection.Normalize();
                     rb.velocity = moveDirection * zombieMoveSpeed;
+
                     if (moveDirection != Vector3.zero)
                     {
                         anim.SetBool("isMoving", true);
                     }
+
+                    if (PlayerController.instance.transform.position.x > transform.position.x)
+                        transform.localScale = new Vector3(1f,1f,1f);
+                    else
+                        transform.localScale = new Vector3(-1f, 1f, 1f);
+
                     break;
                 case EnemyType.Demon:
                     if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) < demonActivationRange && theBody.isVisible)
@@ -84,6 +94,11 @@ public class EnemyController : MonoBehaviour
                             fireCounter = demonFireRate;
                             powerUp.SetActive(true);
                         }
+
+                        if (PlayerController.instance.transform.position.x > transform.position.x)
+                            transform.localScale = new Vector3(1f, 1f, 1f);
+                        else
+                            transform.localScale = new Vector3(-1f, 1f, 1f);
                     }
                     break;
                 case EnemyType.Necromancer:
@@ -97,8 +112,14 @@ public class EnemyController : MonoBehaviour
                         direction.Normalize();
                         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                         currentLaser = Instantiate(laserBeam, transform.position, Quaternion.Euler(0, 0, angle - offSet));
+                        currentLaser.GetComponent<LaserBeam>().onTimer = laserOnTime;
                         nextLaser = necrFireRate;
                     }
+
+                    if (PlayerController.instance.transform.position.x > transform.position.x)
+                        transform.localScale = new Vector3(1f, 1f, 1f);
+                    else
+                        transform.localScale = new Vector3(-1f, 1f, 1f);
                     break;
             }
         }
@@ -117,7 +138,8 @@ public class EnemyController : MonoBehaviour
             int selectedSplatter = Random.Range(0, deathEffect.Length);
 
             Instantiate(deathEffect[selectedSplatter], transform.position, transform.rotation);
-
+            GameManager.instance.playerScore += score;
+            UIController.instance.UpdateScoreText(GameManager.instance.playerScore);
             if(hasKey)
                 Instantiate(key, transform.position, transform.rotation);
             if (enemy == EnemyType.Necromancer)

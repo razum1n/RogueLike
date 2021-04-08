@@ -45,6 +45,7 @@ public class PlayerHealthController : MonoBehaviour
 
             PlayerController.instance.bodySprite.color = new Color(1f, 1f, 1f, 0.5f);
             PlayerController.instance.anim.SetTrigger("isHit");
+            AudioManager.instance.PlaySound("PlayerHit");
             UIController.instance.UpdatePlayerHealth(maxHealth, currentHealth);
 
             if (currentHealth <= 0)

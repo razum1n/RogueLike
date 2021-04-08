@@ -25,6 +25,11 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1f;
+        Scene currentScene = SceneManager.GetActiveScene();
+        if(currentScene.name == "Level 1")
+        {
+            Music.instance.ChangeTrack(2);
+        }
     }
 
     // Update is called once per frame
@@ -45,7 +50,7 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(waitToLoad);
         GameManager.instance.currentHealth = PlayerHealthController.instance.currentHealth;
         GameManager.instance.stageEnemies.Clear();
-
+        Timer.instance.EndTimer();
         UIController.instance.levelEndScreen.SetActive(true);
     }
 

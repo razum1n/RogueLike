@@ -10,6 +10,8 @@ public class MainMenu : MonoBehaviour
 {
 
     public GameObject optionsMenu;
+    public GameObject controlsMenu;
+    public GameObject creditsMenu;
     public AudioMixer audioMixer;
 
     public string levelToLoad;
@@ -28,6 +30,8 @@ public class MainMenu : MonoBehaviour
             dropdown.options.Add(new TMP_Dropdown.OptionData() { text = option });
         }
         dropdown.onValueChanged.AddListener(delegate { DropdownItemSelected(dropdown); });
+        GameManager.instance.ResetGame();
+        Music.instance.ChangeTrack(1);
     }
 
     public void StartGame()
@@ -48,6 +52,16 @@ public class MainMenu : MonoBehaviour
         optionsMenu.SetActive(!optionsMenu.activeSelf);
     }
 
+    public void ControlsToggle()
+    {
+        controlsMenu.SetActive(!controlsMenu.activeSelf);
+    }
+
+    public void CreditsToggle()
+    {
+        creditsMenu.SetActive(!creditsMenu.activeSelf);
+    }
+
     public void DropdownItemSelected(TMP_Dropdown dropdown)
     {
         GameManager.instance.playerControlType = dropdown.value;
@@ -59,5 +73,10 @@ public class MainMenu : MonoBehaviour
 
         if (volume < -45f)
             audioMixer.SetFloat("Volume", -80f);
+    }
+
+    public void ShowTimer()
+    {
+        GameManager.instance.showTimer = !GameManager.instance.showTimer;
     }
 }

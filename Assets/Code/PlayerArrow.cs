@@ -33,6 +33,16 @@ public class PlayerArrow : MonoBehaviour
             other.GetComponent<EnemyController>().DamageEnemy(damage);
             this.gameObject.SetActive(false);
         }
+        else if(other.tag == "Boss")
+        {
+            Instantiate(enemyImpactEffect, transform.position, transform.rotation);
+
+            if(other.GetComponent<BossController>().bossActive)
+            {
+                other.GetComponent<BossController>().TakeDamage(damage);
+            }
+            this.gameObject.SetActive(false);
+        }
         else if(other.tag == "Untagged")
         {
             Instantiate(impactEffect, transform.position, transform.rotation);

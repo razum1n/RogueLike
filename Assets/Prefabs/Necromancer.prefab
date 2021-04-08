@@ -127,7 +127,8 @@ MonoBehaviour:
   demonFireRate: 0
   fireBall: {fileID: 0}
   powerUp: {fileID: 0}
-  necrFireRate: 6
+  necrFireRate: 4
+  laserOnTime: 1.5
   laserBeam: {fileID: 7289405931755831890, guid: ff6d4f829baf8ee459b366657945fdb8,
     type: 3}
   offSet: 88
@@ -140,6 +141,7 @@ MonoBehaviour:
   enemyActive: 0
   hasKey: 0
   health: 400
+  score: 5
   touchDamage: 1
   theBody: {fileID: 0}
 --- !u!61 &1547760085202368556

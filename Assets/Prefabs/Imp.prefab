@@ -170,7 +170,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3568758854212094669}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -206,17 +206,19 @@ MonoBehaviour:
   fireBall: {fileID: 4473833901572389201, guid: 17ae6e7c286a3e44ba98b561769f7789,
     type: 3}
   powerUp: {fileID: 5099220651296295754}
-  firePoint: {fileID: 6084282374441116891}
-  runningEnemySpeed: 0
-  runnerActivationRange: 0
-  runnerMoveSpeed: 0
+  necrFireRate: 0
+  laserOnTime: 0
+  laserBeam: {fileID: 0}
+  offSet: 0
   deathEffect:
   - {fileID: 861695203842785449, guid: a16e8eb6d7ada0643b86b0fc7ea534d1, type: 3}
   - {fileID: 2520755809271631960, guid: b83c338af94b56c4ebdd50b6fbbb1247, type: 3}
   - {fileID: 1201078006839409536, guid: 261f443627cda1b42bfe201b8be0f4ad, type: 3}
+  firePoint: {fileID: 6084282374441116891}
   enemyActive: 0
   hasKey: 0
   health: 150
+  score: 5
   touchDamage: 1
   theBody: {fileID: 0}
 --- !u!1001 &2964054122858921308
