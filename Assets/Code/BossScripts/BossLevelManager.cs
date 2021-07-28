@@ -33,10 +33,6 @@ public class BossLevelManager : MonoBehaviour
 
     void Update()
     {
-        //if(Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    ActivateBoss();
-        //}
         float speed = transitionSpeed * Time.deltaTime;
         if (startBoss && mainCamera.transform.position.y <= 20f)
             mainCamera.transform.position += new Vector3(0f,speed,0f);

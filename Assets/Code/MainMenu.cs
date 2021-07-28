@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
     public GameObject optionsMenu;
     public GameObject controlsMenu;
     public GameObject creditsMenu;
+    public GameObject mainMenu;
     public AudioMixer audioMixer;
 
     public string levelToLoad;
@@ -55,16 +56,19 @@ public class MainMenu : MonoBehaviour
     public void OptionsToggle()
     {
         optionsMenu.SetActive(!optionsMenu.activeSelf);
+        mainMenu.SetActive(!mainMenu.activeSelf);
     }
 
     public void ControlsToggle()
     {
         controlsMenu.SetActive(!controlsMenu.activeSelf);
+        mainMenu.SetActive(!mainMenu.activeSelf);
     }
 
     public void CreditsToggle()
     {
         creditsMenu.SetActive(!creditsMenu.activeSelf);
+        mainMenu.SetActive(!mainMenu.activeSelf);
     }
 
     public void DropdownItemSelected(TMP_Dropdown dropdown)

@@ -24,7 +24,10 @@ public class LevelExit : MonoBehaviour
         if(other.tag == "Player")
         {
             if (other.GetComponent<PlayerController>().hasKey)
+            {
+                Timer.instance.EndTimer();
                 StartCoroutine(LevelManager.instance.LevelEnd());
+            }
             else
                 UIController.instance.keyInfo.SetActive(true);
         }

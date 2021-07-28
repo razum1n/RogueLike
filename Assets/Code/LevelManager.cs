@@ -50,7 +50,6 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(waitToLoad);
         GameManager.instance.currentHealth = PlayerHealthController.instance.currentHealth;
         GameManager.instance.stageEnemies.Clear();
-        Timer.instance.EndTimer();
         UIController.instance.levelEndScreen.SetActive(true);
     }
 

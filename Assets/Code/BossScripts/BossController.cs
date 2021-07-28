@@ -22,10 +22,15 @@ public class BossController : MonoBehaviour
     public float laserRate;
     private float nextLaser;
     private float nextFire;
+    [SerializeField]private float waitTime;
     private GameObject currentLaser;
+    private Dissolve dissolve;
+    private List<GameObject> lasers = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
+        dissolve = GetComponent<Dissolve>();
         nextLaser = laserRate;
         nextFire = fireballRate;
         currentHealth = maxHealth;
@@ -69,6 +74,7 @@ public class BossController : MonoBehaviour
 
     void LaserAttack()
     {
+        lasers.Clear();
         for(int i=0;i< currentLaserNumber; i++)
         {
             currentLaser = Instantiate(laserBeam, transform.position, transform.rotation * Quaternion.Euler(0f, 0f, laserOffset * i));
@@ -77,6 +83,7 @@ public class BossController : MonoBehaviour
             currentLaser.GetComponent<LaserBeam>().onTimer = laserTimer;
             currentLaser.GetComponent<rotate>().rotationActive = true;
             currentLaser.GetComponent<rotate>().speed = 10f;
+            lasers.Add(currentLaser);
         }
     }
 
@@ -96,12 +103,30 @@ public class BossController : MonoBehaviour
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            Instantiate(deathEffect, transform.position, transform.rotation);
-            UIController.instance.StartFadeToBlack();
-            BossLevelManager.instance.endTimer = true;
-            gameObject.SetActive(false);
+            StartCoroutine(BossEnd());
         }
+        else
+        {
+            UIController.instance.SetBossHealth(currentHealth / maxHealth);
+        }
+    }
 
-        UIController.instance.SetBossHealth(currentHealth / maxHealth);
+    private IEnumerator BossEnd()
+    {
+        dissolve.isDissolving = true;
+        if(lasers[0] != null)
+        {
+            foreach (GameObject laser in lasers)
+            {
+                laser.SetActive(false);
+            }
+        }
+        GetComponent<Collider2D>().enabled = false;
+        BossLevelManager.instance.endTimer = true;
+        bossActive = false;
+        yield return new WaitForSeconds(waitTime);
+        UIController.instance.StartFadeToBlack();
     }
 }
+
+
