@@ -12,16 +12,21 @@ public class MainMenu : MonoBehaviour
     public GameObject optionsMenu;
     public GameObject controlsMenu;
     public GameObject creditsMenu;
+    public GameObject highScoreMenu;
     public GameObject mainMenu;
     public AudioMixer audioMixer;
+    private bool startingGame;
 
     public string levelToLoad;
     public TMP_Dropdown dropdown;
+    public TMP_Text scoreText;
+    public TMP_Text rankText;
     public List<string> dropdownOptions = new List<string>();
 
     // Start is called before the first frame update
     void Start()
     {
+        startingGame = false;
         dropdown.options.Clear();
         dropdownOptions.Add("M. and Keyboard");
         dropdownOptions.Add("Controller");
@@ -33,18 +38,18 @@ public class MainMenu : MonoBehaviour
         dropdown.onValueChanged.AddListener(delegate { DropdownItemSelected(dropdown); });
         GameManager.instance.ResetGame();
         Music.instance.ChangeTrack(1);
-    }
-
-    void Update()
-    {
-
+        Music.instance.TriggerTransition("FadeIn");
+        GetHighScore();
     }
 
     public void StartGame()
     {
-        AudioManager.instance.PlaySound("uiClick");
-        GameManager.instance.gameState = GameManager.GameState.Level;
-        SceneManager.LoadScene(levelToLoad);
+        if(startingGame == false)
+        {
+            AudioManager.instance.PlaySound("uiClick");
+            StartCoroutine("StartGameLoading"); 
+        }
+
     }
 
     public void ExitGame()
@@ -71,6 +76,12 @@ public class MainMenu : MonoBehaviour
         mainMenu.SetActive(!mainMenu.activeSelf);
     }
 
+    public void HighScoreToggle()
+    {
+        mainMenu.SetActive(!mainMenu.activeSelf);
+        highScoreMenu.SetActive(!highScoreMenu.activeSelf);
+    }
+
     public void DropdownItemSelected(TMP_Dropdown dropdown)
     {
         GameManager.instance.playerControlType = dropdown.value;
@@ -87,5 +98,39 @@ public class MainMenu : MonoBehaviour
     public void ShowTimer()
     {
         GameManager.instance.showTimer = !GameManager.instance.showTimer;
+    }
+
+    private IEnumerator StartGameLoading()
+    {
+        Music.instance.TriggerTransition("FadeOut");
+        yield return new WaitForSeconds(1);
+        GameManager.instance.gameState = GameManager.GameState.Level;
+        SceneManager.LoadScene(levelToLoad);
+    }
+
+    private void GetHighScore()
+    {
+        float highScore;
+
+        highScore = PlayerPrefs.GetFloat("HighScore");
+        int score = Mathf.RoundToInt(highScore);
+        scoreText.text = score.ToString();
+
+        if (highScore > 290)
+        {
+            rankText.text = "S";
+        }
+        else if (highScore > 250)
+        {
+            rankText.text = "A";
+        }
+        else if (highScore > 180)
+        {
+            rankText.text = "B";
+        }
+        else
+        {
+            rankText.text = "C";
+        }
     }
 }

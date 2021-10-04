@@ -22,6 +22,7 @@ public class BossLevelManager : MonoBehaviour
         instance = this;
         GameManager.instance.gameState = GameManager.GameState.Boss;
         Music.instance.ChangeTrack(3);
+        Music.instance.TriggerTransition("DefaultVolume");
     }
     public void ActivateBoss()
     {

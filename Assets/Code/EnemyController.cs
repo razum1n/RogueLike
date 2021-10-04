@@ -114,11 +114,13 @@ public class EnemyController : MonoBehaviour
                         currentLaser.GetComponent<LaserBeam>().onTimer = laserOnTime;
                         nextLaser = necrFireRate;
                     }
-
-                    if (PlayerController.instance.transform.position.x > transform.position.x)
-                        transform.localScale = new Vector3(1f, 1f, 1f);
-                    else
-                        transform.localScale = new Vector3(-1f, 1f, 1f);
+                    if (currentLaser == null)
+                    {
+                        if (PlayerController.instance.transform.position.x > transform.position.x)
+                            transform.localScale = new Vector3(1f, 1f, 1f);
+                        else
+                            transform.localScale = new Vector3(-1f, 1f, 1f);
+                    }
                     break;
             }
         }

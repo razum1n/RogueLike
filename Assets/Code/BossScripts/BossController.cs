@@ -124,6 +124,7 @@ public class BossController : MonoBehaviour
         GetComponent<Collider2D>().enabled = false;
         BossLevelManager.instance.endTimer = true;
         bossActive = false;
+        Music.instance.TriggerTransition("LowerVolume");
         yield return new WaitForSeconds(waitTime);
         UIController.instance.StartFadeToBlack();
     }

@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     public string arrowType;
 
     public SpriteRenderer bodySprite;
+    public Dissolve dissolve;
 
     public bool canMove = true;
     public bool hasKey = false;
@@ -56,6 +57,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         activeMoveSpeed = moveSpeed;
         inputType = (ControlType)GameManager.instance.playerControlType;
+        dissolve = GetComponent<Dissolve>();
     }
 
     // Update is called once per frame
@@ -133,6 +135,12 @@ public class PlayerController : MonoBehaviour
         {
             dashCoolCounter -= Time.deltaTime;
         }
+    }
+
+    public void StopPlayer()
+    {
+        moveInput = Vector2.zero;
+        rb.velocity = Vector2.zero;
     }
 
     private void HandleMovement()

@@ -50,8 +50,7 @@ public class PlayerHealthController : MonoBehaviour
 
             if (currentHealth <= 0)
             {
-                PlayerController.instance.gameObject.SetActive(false);
-                UIController.instance.ActivateDeathScreen();
+                StartCoroutine("PlayerDeath");
             }
         }
     }
@@ -65,5 +64,21 @@ public class PlayerHealthController : MonoBehaviour
             currentHealth = maxHealth;
         }
         
+    }
+
+    private IEnumerator PlayerDeath()
+    {
+        PlayerController.instance.canMove = false;
+        Timer.instance.EndTimer();
+        PlayerController.instance.StopPlayer();
+        PlayerController.instance.dissolve.isDissolving = true;
+        PlayerController.instance.GetComponent<Collider2D>().enabled = false;
+        Music.instance.TriggerTransition("FadeOut");
+        yield return new WaitForSeconds(2.5f);
+        PlayerController.instance.gameObject.SetActive(false);
+        UIController.instance.StartFadeToBlack();
+        AudioManager.instance.PlaySound("death");
+        yield return new WaitForSeconds(2);
+        UIController.instance.ActivateDeathScreen();
     }
 }

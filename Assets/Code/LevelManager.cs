@@ -29,6 +29,11 @@ public class LevelManager : MonoBehaviour
         if(currentScene.name == "Level 1")
         {
             Music.instance.ChangeTrack(2);
+            Music.instance.TriggerTransition("FadeIn");
+        }
+        else if(currentScene.name == "Level 2")
+        {
+            Music.instance.TriggerTransition("DefaultVolume");
         }
     }
 
@@ -46,7 +51,7 @@ public class LevelManager : MonoBehaviour
         PlayerController.instance.canMove = false;
 
         UIController.instance.StartFadeToBlack();
-
+        Music.instance.TriggerTransition("LowerVolume");
         yield return new WaitForSeconds(waitToLoad);
         GameManager.instance.currentHealth = PlayerHealthController.instance.currentHealth;
         GameManager.instance.stageEnemies.Clear();
