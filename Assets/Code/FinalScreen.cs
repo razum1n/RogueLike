@@ -8,10 +8,13 @@ using System.IO;
 
 public class FinalScreen : MonoBehaviour
 {
+    private DataManager dataManager;
 
-    public float waitForAnyKey = 3f;
-    public float finalScoreValue;
-    public float scoreMultiplier;
+    [SerializeField]
+    private float waitForAnyKey = 3f;
+
+    private float finalScoreValue;
+    private float scoreMultiplier;
     public TMP_Text finalScore;
     public TMP_Text finalTime;
     public TMP_Text score;
@@ -22,6 +25,11 @@ public class FinalScreen : MonoBehaviour
     public GameObject anyKeyText;
 
     public string mainMenuScreen;
+
+    private void Awake()
+    {
+        dataManager = Object.FindObjectOfType<DataManager>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -63,31 +71,37 @@ public class FinalScreen : MonoBehaviour
         multiplier.text = "Time multiplier: X" + scoreMultiplier.ToString();
         finalScoreValue = GameManager.instance.playerScore * scoreMultiplier;
         finalScore.text = "Final Score: " + finalScoreValue.ToString();
-        if (PlayerPrefs.GetFloat("HighScore") < finalScoreValue)
+        if (dataManager.Score < finalScoreValue)
         {
             highScore.text = "High Score: " + finalScoreValue.ToString();
-            PlayerPrefs.SetFloat("HighScore", finalScoreValue);
+            dataManager.Score = finalScoreValue;
+            dataManager.Rank = GetRank();
         }
-        else if (PlayerPrefs.GetFloat("HighScore", 0) > finalScoreValue)
+        else if (dataManager.Score > finalScoreValue)
         {
-            highScore.text = "High Score: " + PlayerPrefs.GetFloat("HighScore").ToString();
+            highScore.text = "High Score: " + dataManager.Score.ToString();
         }
+        dataManager.Save();
+        rank.text = GetRank();
+    }
 
-        if(finalScoreValue > 290)
+    private string GetRank()
+    {
+        if (finalScoreValue > 290)
         {
-            rank.text = "S";
+            return "S";
         }
         else if (finalScoreValue > 250)
         {
-            rank.text = "A";
+            return "A";
         }
         else if (finalScoreValue > 180)
         {
-            rank.text = "B";
+            return "B";
         }
         else
         {
-            rank.text = "C";
+            return "C";
         }
     }
 }

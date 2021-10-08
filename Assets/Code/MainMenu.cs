@@ -8,6 +8,7 @@ using UnityEngine.Audio;
 
 public class MainMenu : MonoBehaviour
 {
+    private DataManager dataManager;
 
     public GameObject optionsMenu;
     public GameObject controlsMenu;
@@ -22,6 +23,13 @@ public class MainMenu : MonoBehaviour
     public TMP_Text scoreText;
     public TMP_Text rankText;
     public List<string> dropdownOptions = new List<string>();
+
+
+    private void Awake()
+    {
+        dataManager = Object.FindObjectOfType<DataManager>();
+        Debug.Log(Application.persistentDataPath);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -112,25 +120,13 @@ public class MainMenu : MonoBehaviour
     {
         float highScore;
 
-        highScore = PlayerPrefs.GetFloat("HighScore");
-        int score = Mathf.RoundToInt(highScore);
-        scoreText.text = score.ToString();
-
-        if (highScore > 290)
+        if(dataManager != null)
         {
-            rankText.text = "S";
-        }
-        else if (highScore > 250)
-        {
-            rankText.text = "A";
-        }
-        else if (highScore > 180)
-        {
-            rankText.text = "B";
-        }
-        else
-        {
-            rankText.text = "C";
+            dataManager.Load();
+            highScore = dataManager.Score;
+            int score = Mathf.RoundToInt(highScore);
+            scoreText.text = score.ToString();
+            rankText.text = dataManager.Rank;
         }
     }
 }
