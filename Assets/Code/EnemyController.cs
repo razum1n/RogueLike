@@ -45,7 +45,7 @@ public class EnemyController : MonoBehaviour
     public bool enemyActive;
     public bool hasKey = false;
     public int health = 150;
-    public int score;
+    public float score;
     public int touchDamage = 1;
     public SpriteRenderer theBody;
 
@@ -139,12 +139,20 @@ public class EnemyController : MonoBehaviour
             int selectedSplatter = Random.Range(0, deathEffect.Length);
 
             Instantiate(deathEffect[selectedSplatter], transform.position, transform.rotation);
-            GameManager.instance.playerScore += score;
+            GameManager.instance.Score(score);
+
+            if(PlayerController.instance.playerScoreMultiplier < 3)
+            {
+                UIController.instance.multiplier.value += 0.2f;
+            }
+
             UIController.instance.UpdateScoreText(GameManager.instance.playerScore);
+
             if(hasKey)
                 Instantiate(key, transform.position, transform.rotation);
             if (enemy == EnemyType.Necromancer)
                 Destroy(currentLaser);
+
             Destroy(gameObject);
         }
     }

@@ -1316,8 +1316,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closeWhenEntered: 0
-  onlyVerticalEntry: 0
-  onlyHorizontalEntry: 1
+  onlyVerticalEntry: 1
+  onlyHorizontalEntry: 0
   noEnemies: 0
   roomActive: 0
   roomHider: {fileID: 1654060768216901097}

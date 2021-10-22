@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,24 +11,32 @@ public class MainMenu : MonoBehaviour
 {
     private DataManager dataManager;
 
+    private TimeSpan fastestTime;
+
     public GameObject optionsMenu;
     public GameObject controlsMenu;
     public GameObject creditsMenu;
     public GameObject highScoreMenu;
     public GameObject mainMenu;
+    public GameObject difficultyMenu;
+
     public AudioMixer audioMixer;
+
     private bool startingGame;
 
     public string levelToLoad;
+
     public TMP_Dropdown dropdown;
+
     public TMP_Text scoreText;
-    public TMP_Text rankText;
+    public TMP_Text bestTimeText;
+
     public List<string> dropdownOptions = new List<string>();
 
 
     private void Awake()
     {
-        dataManager = Object.FindObjectOfType<DataManager>();
+        dataManager = FindObjectOfType<DataManager>();
         Debug.Log(Application.persistentDataPath);
     }
 
@@ -38,6 +47,7 @@ public class MainMenu : MonoBehaviour
         dropdown.options.Clear();
         dropdownOptions.Add("M. and Keyboard");
         dropdownOptions.Add("Controller");
+        Debug.Log(dataManager);
 
         foreach (var option in dropdownOptions)
         {
@@ -50,15 +60,45 @@ public class MainMenu : MonoBehaviour
         GetHighScore();
     }
 
-    public void StartGame()
+    public void StartGameEasy()
     {
         if(startingGame == false)
         {
             AudioManager.instance.PlaySound("uiClick");
+            GameManager.instance.difficulty = GameManager.Difficulty.Easy;
             StartCoroutine("StartGameLoading"); 
         }
 
     }
+
+    public void StartGameNormal()
+    {
+        if (startingGame == false)
+        {
+            AudioManager.instance.PlaySound("uiClick");
+            GameManager.instance.difficulty = GameManager.Difficulty.Normal;
+            StartCoroutine("StartGameLoading");
+        }
+
+    }
+
+    public void StartGameHard()
+    {
+        if (startingGame == false)
+        {
+            AudioManager.instance.PlaySound("uiClick");
+            GameManager.instance.difficulty = GameManager.Difficulty.Hard;
+            StartCoroutine("StartGameLoading");
+        }
+
+    }
+
+    public void DifficultyMenuToggle()
+    {
+        difficultyMenu.SetActive(!difficultyMenu.activeSelf);
+        mainMenu.SetActive(!mainMenu.activeSelf);
+    }
+
 
     public void ExitGame()
     {
@@ -88,6 +128,11 @@ public class MainMenu : MonoBehaviour
     {
         mainMenu.SetActive(!mainMenu.activeSelf);
         highScoreMenu.SetActive(!highScoreMenu.activeSelf);
+    }
+
+    public void DeleteSaveFile()
+    {
+        dataManager.Delete();
     }
 
     public void DropdownItemSelected(TMP_Dropdown dropdown)
@@ -124,9 +169,11 @@ public class MainMenu : MonoBehaviour
         {
             dataManager.Load();
             highScore = dataManager.Score;
+            fastestTime = TimeSpan.FromSeconds(dataManager.BestTime);
+            string bestTimeStr = fastestTime.ToString("mm':'ss'.'ff");
             int score = Mathf.RoundToInt(highScore);
             scoreText.text = score.ToString();
-            rankText.text = dataManager.Rank;
+            bestTimeText.text = bestTimeStr;
         }
     }
 }

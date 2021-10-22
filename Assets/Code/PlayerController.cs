@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 
     public float moveSpeed;
     public float fireRate;
+    public int playerScoreMultiplier;
     public float dashSpeed = 8f;
     public float dashLength = .5f;
     public float dashCooldown = 1f;
@@ -32,12 +33,15 @@ public class PlayerController : MonoBehaviour
     public Animator anim;
 
     public string arrowType;
+    public int playerSpeedLevel;
 
     public SpriteRenderer bodySprite;
     public Dissolve dissolve;
 
     public bool canMove = true;
     public bool hasKey = false;
+
+    public int currentRoomID;
 
     public enum ControlType { Keyboard, Controller };
     public ControlType inputType;
@@ -52,6 +56,8 @@ public class PlayerController : MonoBehaviour
     {
         arrowType = GameManager.instance.playerArrow;
         moveSpeed = GameManager.instance.playerSpeed;
+        playerSpeedLevel = GameManager.instance.playerSpeedLevel;
+        playerScoreMultiplier = 1;
         rb = GetComponent<Rigidbody2D>();
         mainCamera = Camera.main;
         anim = GetComponent<Animator>();
@@ -69,6 +75,13 @@ public class PlayerController : MonoBehaviour
             HandleShooting();
             HandleDashing();
         }
+
+        if (playerSpeedLevel == 1)
+            dashCooldown = 0.7f;
+        else if (playerSpeedLevel == 2)
+            dashCooldown = 0.5f;
+        else if (playerSpeedLevel == 3)
+            dashCooldown = 0.3f;
 
     }
 

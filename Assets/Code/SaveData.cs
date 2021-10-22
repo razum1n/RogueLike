@@ -6,14 +6,14 @@ using System;
 public class SaveData
 {
     public float score;
-    public string rank;
+    public float bestTime;
 
     public string hasValue;
 
     public SaveData()
     {
         score = 0f;
-        rank = "";
+        bestTime = 1000.0f;
         hasValue = String.Empty;
     }
 }

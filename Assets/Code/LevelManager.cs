@@ -55,7 +55,16 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(waitToLoad);
         GameManager.instance.currentHealth = PlayerHealthController.instance.currentHealth;
         GameManager.instance.stageEnemies.Clear();
+
+        if (PlayerController.instance.arrowType == "ArrowThree")
+            UIController.instance.DamageButton.SetActive(false);
+        if (PlayerHealthController.instance.currentHealth == 5)
+            UIController.instance.HealButton.SetActive(false);
+        if (PlayerController.instance.playerSpeedLevel == 3)
+            UIController.instance.SpeedButton.SetActive(false);
+
         UIController.instance.levelEndScreen.SetActive(true);
+        GameManager.instance.SendData();
     }
 
     public void PauseUnpause()

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,13 +15,11 @@ public class FinalScreen : MonoBehaviour
     private float waitForAnyKey = 3f;
 
     private float finalScoreValue;
-    private float scoreMultiplier;
-    public TMP_Text finalScore;
+    private TimeSpan timePlayed;
     public TMP_Text finalTime;
     public TMP_Text score;
-    public TMP_Text multiplier;
     public TMP_Text highScore;
-    public TMP_Text rank;
+    public TMP_Text bestTimeTxt;
 
     public GameObject anyKeyText;
 
@@ -28,16 +27,18 @@ public class FinalScreen : MonoBehaviour
 
     private void Awake()
     {
-        dataManager = Object.FindObjectOfType<DataManager>();
+        dataManager = FindObjectOfType<DataManager>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
         Time.timeScale = 1f;
-        score.text = "Score: " + GameManager.instance.playerScore.ToString();
-        finalTime.text = GameManager.instance.finalTime;
-        GetFinalScore();
+        Debug.Log(ConvertTimeToString(GameManager.instance.timerValue));
+        score.text = GameManager.instance.playerScore.ToString();
+        finalTime.text = ConvertTimeToString(GameManager.instance.timerValue);
+        Debug.Log(GameManager.instance.timerValue);
+        CheckSaveFile();
     }
 
     // Update is called once per frame
@@ -60,48 +61,34 @@ public class FinalScreen : MonoBehaviour
         }
     }
 
-    void GetFinalScore()
+    void CheckSaveFile()
     {
-        if (GameManager.instance.timerValue <= 100f)
-            scoreMultiplier = 1.5f;
-        else if (GameManager.instance.timerValue > 100f && GameManager.instance.timerValue <= 130f)
-            scoreMultiplier = 1.25f;
-        else
-            scoreMultiplier = 1f;
-        multiplier.text = "Time multiplier: X" + scoreMultiplier.ToString();
-        finalScoreValue = GameManager.instance.playerScore * scoreMultiplier;
-        finalScore.text = "Final Score: " + finalScoreValue.ToString();
-        if (dataManager.Score < finalScoreValue)
+        if (dataManager.Score < GameManager.instance.playerScore)
         {
-            highScore.text = "High Score: " + finalScoreValue.ToString();
-            dataManager.Score = finalScoreValue;
-            dataManager.Rank = GetRank();
+            highScore.text = GameManager.instance.playerScore.ToString();
+            dataManager.Score = GameManager.instance.playerScore;
         }
-        else if (dataManager.Score > finalScoreValue)
+        else if (dataManager.Score > GameManager.instance.playerScore)
         {
-            highScore.text = "High Score: " + dataManager.Score.ToString();
+            highScore.text = dataManager.Score.ToString();
         }
+        if(dataManager.BestTime > GameManager.instance.timerValue)
+        {
+            dataManager.BestTime = GameManager.instance.timerValue;
+            bestTimeTxt.text = ConvertTimeToString(GameManager.instance.timerValue);
+        }
+        else if (dataManager.BestTime < GameManager.instance.timerValue)
+        {
+            bestTimeTxt.text = ConvertTimeToString(dataManager.BestTime);
+        }
+
         dataManager.Save();
-        rank.text = GetRank();
     }
 
-    private string GetRank()
+    public string ConvertTimeToString(float timerValue)
     {
-        if (finalScoreValue > 290)
-        {
-            return "S";
-        }
-        else if (finalScoreValue > 250)
-        {
-            return "A";
-        }
-        else if (finalScoreValue > 180)
-        {
-            return "B";
-        }
-        else
-        {
-            return "C";
-        }
+        timePlayed = TimeSpan.FromSeconds(timerValue);
+        string timePlayedStr = timePlayed.ToString("mm':'ss'.'ff");
+        return timePlayedStr;
     }
 }

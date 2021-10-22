@@ -14,15 +14,12 @@ public class UIController : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject levelEndScreen;
     public GameObject settingsMenu;
-    public GameObject finalStats;
     public GameObject keyInfo;
     public GameObject keyImg;
     public GameObject bossHealth;
     public GameObject timer;
 
     public TMP_Text scoreText;
-    public TMP_Text finalScore;
-    public TMP_Text finalTime;
     public Image fadeScreen;
     public Transform bossHealthBar;
     public float fadeSpeed;
@@ -36,6 +33,14 @@ public class UIController : MonoBehaviour
     public GameObject[] uiDamage;
 
     public AudioMixer audioMixer;
+
+
+    public GameObject HealButton;
+    public GameObject SpeedButton;
+    public GameObject DamageButton;
+    public Slider multiplier;
+    public float multiplierSpeed;
+    public TMP_Text multiplierText;
 
     void Awake()
     {
@@ -69,6 +74,22 @@ public class UIController : MonoBehaviour
             if (fadeScreen.color.a <= 0f)
             {
                 fadeToBlack = false;
+            }
+        }
+
+        if (PlayerController.instance.playerScoreMultiplier < 3)
+        {
+            if (multiplier.value >= 0.95)
+            {
+                multiplier.value = 0f;
+                PlayerController.instance.playerScoreMultiplier += 1;
+                multiplierText.text = "X" + PlayerController.instance.playerScoreMultiplier.ToString();
+
+            }
+
+            if (multiplier.value > 0)
+            {
+                multiplier.value -= Time.deltaTime * multiplierSpeed;
             }
         }
     }
@@ -133,7 +154,8 @@ public class UIController : MonoBehaviour
 
     public void UpgradeSpeed()
     {
-        GameManager.instance.playerSpeed += 0.5f;
+        GameManager.instance.playerSpeed *= 1.2f;
+        GameManager.instance.playerSpeedLevel += 1;
         LevelManager.instance.LoadNextLevel();
     }
 
@@ -182,8 +204,8 @@ public class UIController : MonoBehaviour
         bossHealthBar.localScale = new Vector3(damage, 1, 1);
     }
 
-    public void UpdateScoreText(int score)
+    public void UpdateScoreText(float score)
     {
-        scoreText.text = "Score: " + score.ToString();
+        scoreText.text = "Score: " + Mathf.RoundToInt(score).ToString();
     }
 }

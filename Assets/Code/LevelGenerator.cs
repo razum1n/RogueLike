@@ -21,10 +21,18 @@ public class LevelGenerator : MonoBehaviour
     public RoomPrefabs rooms;
 
     public RoomCenter centerStart, centerEnd;
-    public RoomCenter[] potentialCenters;
-    public RoomCenter[] verticalCenters;
-    public RoomCenter[] horizontalCenters;
+    private List<RoomCenter> potentialCenters = new List<RoomCenter>();
+    private List<RoomCenter> verticalCenters = new List<RoomCenter>();
+    private List<RoomCenter> horizontalCenters = new List<RoomCenter>();
+    public RoomsObject roomsObject;
+
     private RoomCenter currentCenter;
+
+
+    private void Awake()
+    {
+        GetRooms();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -84,7 +92,7 @@ public class LevelGenerator : MonoBehaviour
 
                 if(outline.GetComponent<Room>().onlyHorizontalEntry)
                 {
-                    int centerSelected = Random.Range(0, horizontalCenters.Length);
+                    int centerSelected = Random.Range(0, horizontalCenters.Count);
                     currentCenter = Instantiate(horizontalCenters[centerSelected], outline.transform.position, transform.rotation);
                     currentCenter.room = outline.GetComponent<Room>();
                     foreach (GameObject enemy in currentCenter.enemies)
@@ -92,15 +100,15 @@ public class LevelGenerator : MonoBehaviour
                 }
                 else if(outline.GetComponent<Room>().onlyVerticalEntry)
                 {
-                    int centerSelected = Random.Range(0, verticalCenters.Length);
+                    int centerSelected = Random.Range(0, verticalCenters.Count);
                     currentCenter = Instantiate(verticalCenters[centerSelected], outline.transform.position, transform.rotation);
                     currentCenter.room = outline.GetComponent<Room>();
                     foreach (GameObject enemy in currentCenter.enemies)
                         GameManager.instance.stageEnemies.Add(enemy);
                 }
-                else
+                else if(!outline.GetComponent<Room>().onlyVerticalEntry && !outline.GetComponent<Room>().onlyHorizontalEntry)
                 {
-                    int centerSelected = Random.Range(0, potentialCenters.Length);
+                    int centerSelected = Random.Range(0, potentialCenters.Count);
                     currentCenter = Instantiate(potentialCenters[centerSelected], outline.transform.position, transform.rotation);
                     currentCenter.room = outline.GetComponent<Room>();
                     foreach (GameObject enemy in currentCenter.enemies)
@@ -110,17 +118,6 @@ public class LevelGenerator : MonoBehaviour
            
         }
         GameManager.instance.GenerateKey();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-#if UNITY_EDITOR
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-#endif
     }
 
     public void MoveGenerationPoint()
@@ -206,6 +203,41 @@ public class LevelGenerator : MonoBehaviour
                     generatedOutlines.Add(Instantiate(rooms.fourway, roomPosition, transform.rotation));
                 break;
         }
+    }
+
+    private void GetRooms()
+    {
+        RoomCenter[] tempRooms = {};
+
+        if (GameManager.instance.difficulty == GameManager.Difficulty.Easy)
+        {
+            tempRooms = roomsObject.easyRooms;
+        }
+        else if (GameManager.instance.difficulty == GameManager.Difficulty.Normal)
+        {
+            tempRooms = roomsObject.normalRooms;
+        }
+        else if (GameManager.instance.difficulty == GameManager.Difficulty.Hard)
+        {
+            tempRooms = roomsObject.hardRooms;
+        }
+
+        foreach (RoomCenter room in tempRooms)
+        {
+            if (room.roomType == RoomCenter.RoomType.Basic)
+            {
+                potentialCenters.Add(room);
+            }
+            else if (room.roomType == RoomCenter.RoomType.Horizontal)
+            {
+                horizontalCenters.Add(room);
+            }
+            else if (room.roomType == RoomCenter.RoomType.Vertical)
+            {
+                verticalCenters.Add(room);
+            }
+        }
+
     }
 }
 

@@ -12,10 +12,10 @@ public class DataManager : MonoBehaviour
         set { saveData.score = value; }
     }
 
-    public string Rank
+    public float BestTime
     {
-        get { return saveData.rank; }
-        set { saveData.rank = value; }
+        get { return saveData.bestTime; }
+        set { saveData.bestTime = value; }
     }
 
     private void Awake()
@@ -32,6 +32,11 @@ public class DataManager : MonoBehaviour
     public void Load()
     {
         jsonSaver.Load(saveData);
+    }
+
+    public void Delete()
+    {
+        jsonSaver.Delete();
     }
 
 }

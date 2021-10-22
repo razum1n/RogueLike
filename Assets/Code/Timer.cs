@@ -14,6 +14,7 @@ public class Timer : MonoBehaviour
 
     private TimeSpan timePlayed;
     private bool timerOn;
+    public bool timerUsed;
 
     private float elapsedTime;
 
@@ -25,11 +26,15 @@ public class Timer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        elapsedTime = GameManager.instance.timerValue;
-        timePlayed = TimeSpan.FromSeconds(elapsedTime);
-        string timePlayedStr = "Time: " + timePlayed.ToString("mm':'ss'.'ff");
-        timerOn = false;
-        BeginTimer();
+        if(timerUsed)
+        {
+            elapsedTime = GameManager.instance.timerValue;
+            timePlayed = TimeSpan.FromSeconds(elapsedTime);
+            string timePlayedStr = "Time: " + timePlayed.ToString("mm':'ss'.'ff");
+            timerOn = false;
+            BeginTimer();
+        }
+
     }
 
     public void BeginTimer()
@@ -43,6 +48,7 @@ public class Timer : MonoBehaviour
     {
         timerOn = false;
         GameManager.instance.timerValue = elapsedTime;
+        Debug.Log(GameManager.instance.timerValue);
     }
 
     private IEnumerator UpdateTimer()
@@ -58,11 +64,10 @@ public class Timer : MonoBehaviour
         }
     }
 
-    public void FinalTime()
+    public string ConvertToString(float timerValue)
     {
-        timePlayed = TimeSpan.FromSeconds(elapsedTime);
-        string timePlayedStr = "Final Time: " + timePlayed.ToString("mm':'ss'.'ff");
-        GameManager.instance.finalTime = timePlayedStr;
-        timerOn = false;
+        timePlayed = TimeSpan.FromSeconds(timerValue);
+        string timePlayedStr = timePlayed.ToString("mm':'ss'.'ff");
+        return timePlayedStr;
     }
 }

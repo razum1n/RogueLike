@@ -22,8 +22,10 @@ public class Room : MonoBehaviour
             CameraController.instance.ChangeTarget(transform);
             roomActive = true;
             roomHider.SetActive(false);
-            if(noEnemies != true)
+
+            if (noEnemies != true)
             {
+                PlayerController.instance.currentRoomID = center.roomID;
                 for (int i = 0; i < center.enemies.Count; i++)
                 {
                     if (center.enemies[i] != null)

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,14 +10,16 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public enum GameState {MainMenu, Level, Boss};
+    public enum Difficulty {Easy, Normal, Hard};
     public GameState gameState;
+    public Difficulty difficulty;
     public List<GameObject> stageEnemies = new List<GameObject>();
-    public int playerScore = 0;
+    public float playerScore = 0;
     public int currentHealth = 5;
     public string playerArrow = "ArrowOne";
     public float playerSpeed = 4f;
+    public int playerSpeedLevel = 1;
     public float timerValue = 0f;
-    public string finalTime;
     public bool showTimer = true;
     public int playerControlType;
 
@@ -42,8 +46,27 @@ public class GameManager : MonoBehaviour
         currentHealth = 5;
         playerArrow = "ArrowOne";
         playerSpeed = 4f;
+        playerSpeedLevel = 1;
         timerValue = 0f;
         stageEnemies.Clear();
         gameState = GameState.MainMenu;
+    }
+
+    public void SendData()
+    {
+        Scene currenScene = SceneManager.GetActiveScene();
+        AnalyticsResult result = AnalyticsEvent.Custom("LevelEndStats", new Dictionary<string, object> { 
+            { "Level", currenScene.name},
+            {"PlayerHealth", PlayerHealthController.instance.currentHealth },
+            {"PlayerCurrentTime", timerValue },
+            {"PlayerScore", playerScore }
+        } );
+
+        Debug.Log("Analytics result: " + result);
+    }
+
+    public void Score(float score)
+    {
+        playerScore += (score * PlayerController.instance.playerScoreMultiplier);
     }
 }

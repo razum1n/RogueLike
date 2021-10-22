@@ -6,18 +6,8 @@ using UnityEngine.SceneManagement;
 public class LevelExit : MonoBehaviour
 {
     public string levelToLoad;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public GameObject openingChest;
+    public GameObject closedChest;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -25,6 +15,8 @@ public class LevelExit : MonoBehaviour
         {
             if (other.GetComponent<PlayerController>().hasKey)
             {
+                closedChest.SetActive(false);
+                openingChest.SetActive(true);
                 Timer.instance.EndTimer();
                 StartCoroutine(LevelManager.instance.LevelEnd());
             }

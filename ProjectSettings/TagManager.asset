@@ -16,6 +16,10 @@ TagManager:
   - Hazard
   - Laser
   - Boss
+  - RoomBasic
+  - RoomHor
+  - RoomVer
+  - DataManager
   layers:
   - Default
   - TransparentFX

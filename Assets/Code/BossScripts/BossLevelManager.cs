@@ -65,7 +65,7 @@ public class BossLevelManager : MonoBehaviour
 
     public void LevelEnd()
     {
-        Timer.instance.FinalTime();
+        Timer.instance.EndTimer();
         SceneManager.LoadScene(4);
     }
 }
