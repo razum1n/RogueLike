@@ -19,6 +19,7 @@ public class MainMenu : MonoBehaviour
     public GameObject highScoreMenu;
     public GameObject mainMenu;
     public GameObject difficultyMenu;
+    public GameObject areYouSureMenu;
 
     public AudioMixer audioMixer;
 
@@ -37,7 +38,6 @@ public class MainMenu : MonoBehaviour
     private void Awake()
     {
         dataManager = FindObjectOfType<DataManager>();
-        Debug.Log(Application.persistentDataPath);
     }
 
     // Start is called before the first frame update
@@ -47,7 +47,6 @@ public class MainMenu : MonoBehaviour
         dropdown.options.Clear();
         dropdownOptions.Add("M. and Keyboard");
         dropdownOptions.Add("Controller");
-        Debug.Log(dataManager);
 
         foreach (var option in dropdownOptions)
         {
@@ -65,7 +64,9 @@ public class MainMenu : MonoBehaviour
         if(startingGame == false)
         {
             AudioManager.instance.PlaySound("uiClick");
-            GameManager.instance.difficulty = GameManager.Difficulty.Easy;
+            DifficultyController.instance.selectedDifficulty = DifficultyController.SelectedDifficulty.Easy;
+            DifficultyController.instance.roomDifficulty = DifficultyController.RoomDifficulty.Easy;
+            DifficultyController.instance.enemyDifficulty = DifficultyController.EnemyDifficulty.Easy;
             StartCoroutine("StartGameLoading"); 
         }
 
@@ -76,7 +77,8 @@ public class MainMenu : MonoBehaviour
         if (startingGame == false)
         {
             AudioManager.instance.PlaySound("uiClick");
-            GameManager.instance.difficulty = GameManager.Difficulty.Normal;
+            DifficultyController.instance.selectedDifficulty = DifficultyController.SelectedDifficulty.Normal;
+            DifficultyController.instance.roomDifficulty = DifficultyController.RoomDifficulty.Easy;
             StartCoroutine("StartGameLoading");
         }
 
@@ -87,7 +89,9 @@ public class MainMenu : MonoBehaviour
         if (startingGame == false)
         {
             AudioManager.instance.PlaySound("uiClick");
-            GameManager.instance.difficulty = GameManager.Difficulty.Hard;
+            DifficultyController.instance.selectedDifficulty = DifficultyController.SelectedDifficulty.Hard;
+            DifficultyController.instance.roomDifficulty = DifficultyController.RoomDifficulty.Normal;
+            DifficultyController.instance.enemyDifficulty = DifficultyController.EnemyDifficulty.Hard;
             StartCoroutine("StartGameLoading");
         }
 
@@ -133,6 +137,14 @@ public class MainMenu : MonoBehaviour
     public void DeleteSaveFile()
     {
         dataManager.Delete();
+        scoreText.text = "0";
+        areYouSureMenu.SetActive(!areYouSureMenu.activeSelf);
+        bestTimeText.text = "00:00:00";
+    }
+
+    public void ToggleAreYouSure()
+    {
+        areYouSureMenu.SetActive(!areYouSureMenu.activeSelf);
     }
 
     public void DropdownItemSelected(TMP_Dropdown dropdown)
@@ -156,7 +168,7 @@ public class MainMenu : MonoBehaviour
     private IEnumerator StartGameLoading()
     {
         Music.instance.TriggerTransition("FadeOut");
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         GameManager.instance.gameState = GameManager.GameState.Level;
         SceneManager.LoadScene(levelToLoad);
     }

@@ -175,8 +175,8 @@ MonoBehaviour:
   noEnemies: 0
   roomType: 1
   enemies:
-  - {fileID: 5613792509286270928}
   - {fileID: 1533323475588735430}
+  - {fileID: 5613792509286270928}
   hazards: []
 --- !u!1 &4642395006034730473
 GameObject:

@@ -118,6 +118,7 @@ public class LevelGenerator : MonoBehaviour
            
         }
         GameManager.instance.GenerateKey();
+        DifficultyController.instance.SetEnemyDifficulty();
     }
 
     public void MoveGenerationPoint()
@@ -209,15 +210,15 @@ public class LevelGenerator : MonoBehaviour
     {
         RoomCenter[] tempRooms = {};
 
-        if (GameManager.instance.difficulty == GameManager.Difficulty.Easy)
+        if (DifficultyController.instance.roomDifficulty == DifficultyController.RoomDifficulty.Easy)
         {
             tempRooms = roomsObject.easyRooms;
         }
-        else if (GameManager.instance.difficulty == GameManager.Difficulty.Normal)
+        else if (DifficultyController.instance.roomDifficulty == DifficultyController.RoomDifficulty.Normal)
         {
             tempRooms = roomsObject.normalRooms;
         }
-        else if (GameManager.instance.difficulty == GameManager.Difficulty.Hard)
+        else if (DifficultyController.instance.roomDifficulty == DifficultyController.RoomDifficulty.Hard)
         {
             tempRooms = roomsObject.hardRooms;
         }

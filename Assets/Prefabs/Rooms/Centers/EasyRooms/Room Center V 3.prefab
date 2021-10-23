@@ -75,8 +75,8 @@ MonoBehaviour:
   noEnemies: 0
   roomType: 2
   enemies:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8501397064673867006}
+  - {fileID: 8268572302979755553}
   hazards: []
 --- !u!1 &7358909258086878439
 GameObject:
@@ -2580,6 +2580,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9408b74ae2d6e9a4c969881fae7e0225, type: 3}
+--- !u!1 &8268572302979755553 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3568758854212094669, guid: 9408b74ae2d6e9a4c969881fae7e0225,
+    type: 3}
+  m_PrefabInstance: {fileID: 4843931420527846636}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4169528932285276204 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8855270453811971264, guid: 9408b74ae2d6e9a4c969881fae7e0225,
@@ -2655,6 +2661,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9408b74ae2d6e9a4c969881fae7e0225, type: 3}
+--- !u!1 &8501397064673867006 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3568758854212094669, guid: 9408b74ae2d6e9a4c969881fae7e0225,
+    type: 3}
+  m_PrefabInstance: {fileID: 4935312781625310771}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4510915077280447219 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8855270453811971264, guid: 9408b74ae2d6e9a4c969881fae7e0225,

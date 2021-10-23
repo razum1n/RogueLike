@@ -20,6 +20,7 @@ public class BossController : MonoBehaviour
     private float fireOffset = 90f;
     public float fireballRate;
     public float laserRate;
+    public float laserRotateSpeed;
     private float nextLaser;
     private float nextFire;
     [SerializeField]private float waitTime;
@@ -36,6 +37,20 @@ public class BossController : MonoBehaviour
         currentHealth = maxHealth;
         currentLaserNumber = laserNumber;
         currentFireballCount = fireballCount;
+
+        if (DifficultyController.instance.enemyDifficulty == DifficultyController.EnemyDifficulty.Hard && DifficultyController.instance.roomDifficulty == DifficultyController.RoomDifficulty.Hard)
+        {
+            fireballCount = 12;
+            fireballRate = 1;
+            laserRotateSpeed = 15f;
+            currentHealth = 19000f;
+        }
+        else if(DifficultyController.instance.enemyDifficulty == DifficultyController.EnemyDifficulty.Easy)
+        {
+            laserNumber = 3;
+            fireballRate = 3;
+            currentHealth = 15000;
+        }
     }
 
     // Update is called once per frame
@@ -82,7 +97,7 @@ public class BossController : MonoBehaviour
                 currentLaser.GetComponent<AudioSource>().enabled = false;
             currentLaser.GetComponent<LaserBeam>().onTimer = laserTimer;
             currentLaser.GetComponent<rotate>().rotationActive = true;
-            currentLaser.GetComponent<rotate>().speed = 10f;
+            currentLaser.GetComponent<rotate>().speed = laserRotateSpeed;
             lasers.Add(currentLaser);
         }
     }

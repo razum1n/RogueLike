@@ -35,6 +35,9 @@ public class LevelManager : MonoBehaviour
         {
             Music.instance.TriggerTransition("DefaultVolume");
         }
+
+        if(DifficultyController.instance.enemyDifficulty != DifficultyController.EnemyDifficulty.Normal)
+            DifficultyController.instance.SetEnemyDifficulty();
     }
 
     // Update is called once per frame
@@ -54,6 +57,7 @@ public class LevelManager : MonoBehaviour
         Music.instance.TriggerTransition("LowerVolume");
         yield return new WaitForSeconds(waitToLoad);
         GameManager.instance.currentHealth = PlayerHealthController.instance.currentHealth;
+        DifficultyController.instance.SetRoomDifficulty();
         GameManager.instance.stageEnemies.Clear();
 
         if (PlayerController.instance.arrowType == "ArrowThree")
@@ -64,7 +68,6 @@ public class LevelManager : MonoBehaviour
             UIController.instance.SpeedButton.SetActive(false);
 
         UIController.instance.levelEndScreen.SetActive(true);
-        GameManager.instance.SendData();
     }
 
     public void PauseUnpause()

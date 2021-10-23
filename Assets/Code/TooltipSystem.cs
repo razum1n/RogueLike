@@ -22,6 +22,7 @@ public class TooltipSystem : MonoBehaviour
 
     public static void Hide()
     {
-        current.tooltip.gameObject.SetActive(false);
+        if(current.tooltip != null)
+            current.tooltip.gameObject.SetActive(false);
     }
 }

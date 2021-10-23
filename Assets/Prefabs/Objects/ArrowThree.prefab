@@ -99,7 +99,7 @@ MonoBehaviour:
     type: 3}
   enemyImpactEffect: {fileID: 3905916594940981147, guid: 0c0bc0d5534d4af48b00ab132749eec6,
     type: 3}
-  damage: 150
+  damage: 100
 --- !u!1 &5182213929028811475
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,6 +146,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

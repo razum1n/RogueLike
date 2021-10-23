@@ -51,6 +51,8 @@ public class PlayerHealthController : MonoBehaviour
             AudioManager.instance.PlaySound("PlayerHit");
             UIController.instance.UpdatePlayerHealth(maxHealth, currentHealth);
 
+            GameManager.instance.SendDataDamage();
+
             if (currentHealth <= 0)
             {
                 StartCoroutine("PlayerDeath");
@@ -82,6 +84,7 @@ public class PlayerHealthController : MonoBehaviour
         UIController.instance.StartFadeToBlack();
         AudioManager.instance.PlaySound("death");
         yield return new WaitForSeconds(2);
+        GameManager.instance.SendDataDeath();
         UIController.instance.ActivateDeathScreen();
     }
 }

@@ -169,13 +169,13 @@ MonoBehaviour:
   anim: {fileID: 0}
   key: {fileID: 6898680653527724088, guid: 7e4e5685a3b739f46b0f7ddf20f49279, type: 3}
   enemy: 0
-  zombieChaseRange: 12
-  zombieMoveSpeed: 3
-  demonActivationRange: 0
-  demonFireRate: 0
+  chaseRange: 12
+  moveSpeed: 3
+  activationRange: 0
+  fireRate: 0
   fireBall: {fileID: 0}
   powerUp: {fileID: 0}
-  necrFireRate: 0
+  laserRate: 0
   laserOnTime: 0
   laserBeam: {fileID: 0}
   offSet: 0
@@ -183,7 +183,7 @@ MonoBehaviour:
   - {fileID: 7361587673140124057, guid: 7e487b67963616344836bb6334f2c715, type: 3}
   - {fileID: 861695203842785449, guid: a16e8eb6d7ada0643b86b0fc7ea534d1, type: 3}
   - {fileID: 2520755809271631960, guid: b83c338af94b56c4ebdd50b6fbbb1247, type: 3}
-  - {fileID: 911290701403219961, guid: aeb21d3c164817844b6bbe78b29bc1df, type: 3}
+  - {fileID: 1201078006839409536, guid: 261f443627cda1b42bfe201b8be0f4ad, type: 3}
   firePoint: {fileID: 0}
   enemyActive: 0
   hasKey: 0

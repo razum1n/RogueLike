@@ -15,30 +15,25 @@ public class EnemyController : MonoBehaviour
         Necromancer
     }
 
+    private Vector3 moveDirection;
     public EnemyType enemy;
 
-    #region Zombie Variables
-    public float zombieChaseRange;
-    private Vector3 moveDirection;
-    public float zombieMoveSpeed;
-    #endregion
+    public float chaseRange;
 
-    #region Demon Variables
-    public float demonActivationRange;
+    public float moveSpeed;
+
+    public float activationRange;
     private float fireCounter;
-    public float demonFireRate;
+    public float fireRate;
     public GameObject fireBall;
     public GameObject powerUp;
-    #endregion
 
-    #region Necromancer Variables
-    public float necrFireRate;
+    public float laserRate;
     private float nextLaser = 1.5f;
     public float laserOnTime;
     public GameObject laserBeam;
     private GameObject currentLaser;
     public float offSet;
-    #endregion
 
     public GameObject[] deathEffect;
     public Transform firePoint;
@@ -65,12 +60,12 @@ public class EnemyController : MonoBehaviour
             switch (enemy)
             {
                 case EnemyType.Zombie:
-                    if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) < zombieChaseRange)
+                    if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) < chaseRange)
                     {
                         moveDirection = PlayerController.instance.transform.position - transform.position;
                     }
                     moveDirection.Normalize();
-                    rb.velocity = moveDirection * zombieMoveSpeed;
+                    rb.velocity = moveDirection * moveSpeed;
 
                     if (moveDirection != Vector3.zero)
                     {
@@ -84,13 +79,13 @@ public class EnemyController : MonoBehaviour
 
                     break;
                 case EnemyType.Demon:
-                    if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) < demonActivationRange && theBody.isVisible)
+                    if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) < activationRange && theBody.isVisible)
                     {
                         fireCounter -= Time.deltaTime;
 
                         if (fireCounter <= 0)
                         {
-                            fireCounter = demonFireRate;
+                            fireCounter = fireRate;
                             powerUp.SetActive(true);
                         }
 
@@ -112,7 +107,7 @@ public class EnemyController : MonoBehaviour
                         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                         currentLaser = Instantiate(laserBeam, transform.position, Quaternion.Euler(0, 0, angle - offSet));
                         currentLaser.GetComponent<LaserBeam>().onTimer = laserOnTime;
-                        nextLaser = necrFireRate;
+                        nextLaser = laserRate;
                     }
                     if (currentLaser == null)
                     {

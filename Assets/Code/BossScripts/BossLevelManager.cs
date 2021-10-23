@@ -11,6 +11,7 @@ public class BossLevelManager : MonoBehaviour
     public GameObject door;
     public GameObject doorSpriteL;
     public GameObject doorSpriteR;
+    public GameObject[] boxes;
     public BossController boss;
     public float waitToLoad = 3f;
     public float transitionSpeed = 10f;
@@ -23,6 +24,14 @@ public class BossLevelManager : MonoBehaviour
         GameManager.instance.gameState = GameManager.GameState.Boss;
         Music.instance.ChangeTrack(3);
         Music.instance.TriggerTransition("DefaultVolume");
+
+        if(DifficultyController.instance.enemyDifficulty == DifficultyController.EnemyDifficulty.Hard && DifficultyController.instance.roomDifficulty == DifficultyController.RoomDifficulty.Hard)
+        {
+            foreach(GameObject box in boxes)
+            {
+                box.SetActive(false);
+            }
+        }
     }
     public void ActivateBoss()
     {
@@ -66,6 +75,6 @@ public class BossLevelManager : MonoBehaviour
     public void LevelEnd()
     {
         Timer.instance.EndTimer();
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(5);
     }
 }

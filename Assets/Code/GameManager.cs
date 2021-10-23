@@ -10,9 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public enum GameState {MainMenu, Level, Boss};
-    public enum Difficulty {Easy, Normal, Hard};
     public GameState gameState;
-    public Difficulty difficulty;
     public List<GameObject> stageEnemies = new List<GameObject>();
     public float playerScore = 0;
     public int currentHealth = 5;
@@ -52,17 +50,34 @@ public class GameManager : MonoBehaviour
         gameState = GameState.MainMenu;
     }
 
-    public void SendData()
+    public void SendDataDamage()
     {
-        Scene currenScene = SceneManager.GetActiveScene();
-        AnalyticsResult result = AnalyticsEvent.Custom("LevelEndStats", new Dictionary<string, object> { 
-            { "Level", currenScene.name},
-            {"PlayerHealth", PlayerHealthController.instance.currentHealth },
-            {"PlayerCurrentTime", timerValue },
-            {"PlayerScore", playerScore }
+        
+        AnalyticsResult result = AnalyticsEvent.Custom("PlayerDamage", new Dictionary<string, object> { 
+            { "CurrentRoom", PlayerController.instance.currentRoomID}
         } );
 
         Debug.Log("Analytics result: " + result);
+    }
+
+    public void SendDataDeath()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        AnalyticsResult result = AnalyticsEvent.Custom("PlayerDeath: " + DifficultyController.instance.selectedDifficulty.ToString(), new Dictionary<string, object> {
+            { "Level", currentScene.name}
+        });
+
+        Debug.Log("Analytics result: " + result);
+    }
+
+    public void SendDataGameComplete()
+    {
+        AnalyticsResult result = AnalyticsEvent.Custom("GameComplete", new Dictionary<string, object> {
+            { "Difficulty", DifficultyController.instance.selectedDifficulty.ToString()},
+            {"Score", playerScore },
+            {"Time", timerValue },
+            {"Health", currentHealth }
+        });
     }
 
     public void Score(float score)

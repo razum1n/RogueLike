@@ -580,6 +580,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 4671747683395299890, guid: 8086c59909691a24daf04d07642134a4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4671747683395299894, guid: 8086c59909691a24daf04d07642134a4,
         type: 3}
       propertyPath: m_Pivot.x
@@ -683,6 +688,11 @@ PrefabInstance:
     - target: {fileID: 4671747683395299894, guid: 8086c59909691a24daf04d07642134a4,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8777645077520098259, guid: 8086c59909691a24daf04d07642134a4,
+        type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -10883,6 +10893,14 @@ MonoBehaviour:
   door: {fileID: 118014232}
   doorSpriteL: {fileID: 118014237}
   doorSpriteR: {fileID: 118014236}
+  boxes:
+  - {fileID: 1329533830}
+  - {fileID: 1508639284}
+  - {fileID: 1037654808}
+  - {fileID: 119497673}
+  - {fileID: 1258072711}
+  - {fileID: 1863123148}
+  - {fileID: 1432667090}
   boss: {fileID: 2898410442484836655}
   waitToLoad: 2
   transitionSpeed: 5
@@ -11812,7 +11830,7 @@ MonoBehaviour:
   deathEffect: {fileID: 7361587673140124057, guid: 7e487b67963616344836bb6334f2c715,
     type: 3}
   bossActive: 0
-  maxHealth: 15000
+  maxHealth: 17000
   currentHealth: 0
   laserNumber: 8
   fireballCount: 8
@@ -11820,6 +11838,7 @@ MonoBehaviour:
   laserOffset: 60
   fireballRate: 2
   laserRate: 10
+  laserRotateSpeed: 10
   waitTime: 15
 --- !u!114 &2898410442484836656
 MonoBehaviour:

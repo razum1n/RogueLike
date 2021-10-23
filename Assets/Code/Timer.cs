@@ -48,7 +48,6 @@ public class Timer : MonoBehaviour
     {
         timerOn = false;
         GameManager.instance.timerValue = elapsedTime;
-        Debug.Log(GameManager.instance.timerValue);
     }
 
     private IEnumerator UpdateTimer()

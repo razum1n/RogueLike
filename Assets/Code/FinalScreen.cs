@@ -14,7 +14,6 @@ public class FinalScreen : MonoBehaviour
     [SerializeField]
     private float waitForAnyKey = 3f;
 
-    private float finalScoreValue;
     private TimeSpan timePlayed;
     public TMP_Text finalTime;
     public TMP_Text score;
@@ -34,11 +33,10 @@ public class FinalScreen : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1f;
-        Debug.Log(ConvertTimeToString(GameManager.instance.timerValue));
         score.text = GameManager.instance.playerScore.ToString();
         finalTime.text = ConvertTimeToString(GameManager.instance.timerValue);
-        Debug.Log(GameManager.instance.timerValue);
         CheckSaveFile();
+        GameManager.instance.SendDataGameComplete();
     }
 
     // Update is called once per frame
