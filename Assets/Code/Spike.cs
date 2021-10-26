@@ -5,17 +5,30 @@ using UnityEngine;
 public class Spike : MonoBehaviour
 {
     public Animator anim;
+    public float waitTime;
+    private float defaultWaitTime;
+    public bool startingAnim;
 
-    // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
+        defaultWaitTime = waitTime;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+
+        if (waitTime <= 0 && startingAnim)
+        {
+            anim.SetTrigger("trigger");
+            waitTime = defaultWaitTime;
+            startingAnim = false;
+        }
+
+        if(startingAnim)
+        {
+            waitTime -= Time.deltaTime;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)

@@ -68,6 +68,7 @@ public class LevelManager : MonoBehaviour
             UIController.instance.SpeedButton.SetActive(false);
 
         UIController.instance.levelEndScreen.SetActive(true);
+        GameManager.instance.SendDataLevelComplete();
     }
 
     public void PauseUnpause()

@@ -7,6 +7,7 @@ public class PlayerHealthController : MonoBehaviour
     public static PlayerHealthController instance;
 
     public int currentHealth;
+    public int stageStartHealth;
     public int maxHealth;
     public float invincibility = 1f;
 
@@ -60,15 +61,17 @@ public class PlayerHealthController : MonoBehaviour
         }
     }
 
+    public void DashIFrames()
+    {
+        invCount = 0.5f;
+        PlayerController.instance.bodySprite.color = new Color(1f, 1f, 1f, 0.5f);
+    }
+
     public void HealPlayer(int healAmount)
     {
         currentHealth += healAmount;
         UIController.instance.UpdatePlayerHealth(maxHealth, currentHealth);
-        if (currentHealth > maxHealth)
-        {
-            currentHealth = maxHealth;
-        }
-        
+
     }
 
     private IEnumerator PlayerDeath()

@@ -11,7 +11,7 @@ public class RoomCenter : MonoBehaviour
     public RoomType roomType;
 
     public List<GameObject> enemies = new List<GameObject>();
-    public List<GameObject> hazards = new List<GameObject>();
+    public List<GameObject> spikes = new List<GameObject>();
 
     void Start()
     {

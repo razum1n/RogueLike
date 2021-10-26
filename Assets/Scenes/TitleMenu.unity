@@ -6091,7 +6091,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4cebab5a0d321b43ac472b68ce48e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: Has a combination of easy and hard rooms. Intended difficulty
+  content: Has a combination of easy and hard rooms.
   header: Normal
   delay: 1.5
 --- !u!1 &1510605063
@@ -6717,6 +6717,7 @@ MonoBehaviour:
   roomDifficulty: 0
   enemyDifficulty: 0
   selectedDifficulty: 0
+  enemyDifficultyDecreased: 0
 --- !u!1 &1698428589
 GameObject:
   m_ObjectHideFlags: 0

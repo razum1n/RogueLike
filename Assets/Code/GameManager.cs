@@ -48,6 +48,10 @@ public class GameManager : MonoBehaviour
         timerValue = 0f;
         stageEnemies.Clear();
         gameState = GameState.MainMenu;
+        DifficultyController.instance.enemyDifficultyDecreased = false;
+        DifficultyController.instance.enemyDifficulty = DifficultyController.EnemyDifficulty.Easy;
+        DifficultyController.instance.roomDifficulty = DifficultyController.RoomDifficulty.Easy;
+        DifficultyController.instance.selectedDifficulty = DifficultyController.SelectedDifficulty.Easy;
     }
 
     public void SendDataDamage()
@@ -57,17 +61,23 @@ public class GameManager : MonoBehaviour
             { "CurrentRoom", PlayerController.instance.currentRoomID}
         } );
 
-        Debug.Log("Analytics result: " + result);
     }
 
     public void SendDataDeath()
     {
         Scene currentScene = SceneManager.GetActiveScene();
-        AnalyticsResult result = AnalyticsEvent.Custom("PlayerDeath: " + DifficultyController.instance.selectedDifficulty.ToString(), new Dictionary<string, object> {
+        AnalyticsResult result = AnalyticsEvent.Custom("PlayerDeath" + DifficultyController.instance.selectedDifficulty.ToString(), new Dictionary<string, object> {
+            { "Level", currentScene.name}
+        });
+    }
+
+    public void SendDataLevelComplete()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        AnalyticsResult result = AnalyticsEvent.Custom("LevelComplete: " + DifficultyController.instance.selectedDifficulty.ToString(), new Dictionary<string, object> {
             { "Level", currentScene.name}
         });
 
-        Debug.Log("Analytics result: " + result);
     }
 
     public void SendDataGameComplete()

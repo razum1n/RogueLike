@@ -22,6 +22,7 @@ public class Room : MonoBehaviour
             CameraController.instance.ChangeTarget(transform);
             roomActive = true;
             roomHider.SetActive(false);
+            DifficultyController.instance.CheckEnemyDifficulty();
 
             if (noEnemies != true)
             {
@@ -33,11 +34,11 @@ public class Room : MonoBehaviour
                         center.enemies[i].GetComponent<EnemyController>().enemyActive = true;
                     }
                 }
-                for (int i = 0; i < center.hazards.Count; i++)
+                for (int i = 0; i < center.spikes.Count; i++)
                 {
-                    if (center.hazards[i] != null)
+                    if (center.spikes[i] != null)
                     {
-                        center.hazards[i].GetComponent<Hazard>().activeHazard = true;
+                        center.spikes[i].GetComponent<Spike>().startingAnim = true;
                     }
                 }
             }
@@ -57,13 +58,6 @@ public class Room : MonoBehaviour
                     if (center.enemies[i] != null)
                     {
                         center.enemies[i].GetComponent<EnemyController>().enemyActive = false;
-                    }
-                }
-                for (int i = 0; i < center.hazards.Count; i++)
-                {
-                    if (center.hazards[i] != null)
-                    {
-                        center.hazards[i].GetComponent<Hazard>().activeHazard = false;
                     }
                 }
             }

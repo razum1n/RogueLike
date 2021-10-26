@@ -136,7 +136,7 @@ MonoBehaviour:
   enemies:
   - {fileID: 3366376535640315674}
   - {fileID: 3366376536193475216}
-  hazards: []
+  spikes: []
 --- !u!1 &3497355521397043213
 GameObject:
   m_ObjectHideFlags: 0

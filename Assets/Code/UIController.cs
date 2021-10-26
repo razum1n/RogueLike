@@ -154,7 +154,7 @@ public class UIController : MonoBehaviour
 
     public void UpgradeSpeed()
     {
-        GameManager.instance.playerSpeed *= 1.2f;
+        GameManager.instance.playerSpeed += 1.2f;
         GameManager.instance.playerSpeedLevel += 1;
         LevelManager.instance.LoadNextLevel();
     }

@@ -11830,7 +11830,7 @@ MonoBehaviour:
   deathEffect: {fileID: 7361587673140124057, guid: 7e487b67963616344836bb6334f2c715,
     type: 3}
   bossActive: 0
-  maxHealth: 17000
+  maxHealth: 16000
   currentHealth: 0
   laserNumber: 8
   fireballCount: 8

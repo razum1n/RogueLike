@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     public Rigidbody2D rb;
     public Animator anim;
     public GameObject key;
+    public GameObject healthDrop;
 
     public enum EnemyType
     {
@@ -19,10 +20,12 @@ public class EnemyController : MonoBehaviour
     public EnemyType enemy;
 
     public float chaseRange;
+    public float healthDropChance;
 
     public float moveSpeed;
 
     public float activationRange;
+    public float activationTime;
     private float fireCounter;
     public float fireRate;
     public GameObject fireBall;
@@ -30,6 +33,7 @@ public class EnemyController : MonoBehaviour
 
     public float laserRate;
     private float nextLaser = 1.5f;
+    private float defaultActivationTime;
     public float laserOnTime;
     public GameObject laserBeam;
     private GameObject currentLaser;
@@ -38,6 +42,7 @@ public class EnemyController : MonoBehaviour
     public GameObject[] deathEffect;
     public Transform firePoint;
     public bool enemyActive;
+    public bool canAct;
     public bool hasKey = false;
     public int health = 150;
     public float score;
@@ -50,12 +55,25 @@ public class EnemyController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         theBody = GetComponent<SpriteRenderer>();
+        defaultActivationTime = activationTime;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(PlayerController.instance.gameObject.activeInHierarchy && enemyActive)
+        if(activationTime <= 0 && enemyActive)
+        {
+            canAct = true;
+            enemyActive = false;
+            activationTime = defaultActivationTime;
+        }
+
+        if(enemyActive)
+        {
+            activationTime -= Time.deltaTime;
+        }
+
+        if(PlayerController.instance.gameObject.activeInHierarchy && canAct)
         {
             switch (enemy)
             {
@@ -147,7 +165,12 @@ public class EnemyController : MonoBehaviour
                 Instantiate(key, transform.position, transform.rotation);
             if (enemy == EnemyType.Necromancer)
                 Destroy(currentLaser);
+            float dropChance = Random.Range(1f, 100f);
+            if (dropChance < healthDropChance)
+            {
 
+                Instantiate(healthDrop, transform.position, transform.rotation);
+            }
             Destroy(gameObject);
         }
     }

@@ -79,6 +79,7 @@ public class MainMenu : MonoBehaviour
             AudioManager.instance.PlaySound("uiClick");
             DifficultyController.instance.selectedDifficulty = DifficultyController.SelectedDifficulty.Normal;
             DifficultyController.instance.roomDifficulty = DifficultyController.RoomDifficulty.Easy;
+            DifficultyController.instance.enemyDifficulty = DifficultyController.EnemyDifficulty.Normal;
             StartCoroutine("StartGameLoading");
         }
 

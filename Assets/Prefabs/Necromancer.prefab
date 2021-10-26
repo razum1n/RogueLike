@@ -121,10 +121,14 @@ MonoBehaviour:
   rb: {fileID: 0}
   anim: {fileID: 0}
   key: {fileID: 6898680653527724088, guid: 7e4e5685a3b739f46b0f7ddf20f49279, type: 3}
+  healthDrop: {fileID: 2778077786475754829, guid: 91cafef769423dd49bf5d0319bb286eb,
+    type: 3}
   enemy: 2
   chaseRange: 0
+  healthDropChance: 0
   moveSpeed: 0
   activationRange: 0
+  activationTime: 0.8
   fireRate: 0
   fireBall: {fileID: 0}
   powerUp: {fileID: 0}
@@ -139,6 +143,7 @@ MonoBehaviour:
   - {fileID: 1201078006839409536, guid: 261f443627cda1b42bfe201b8be0f4ad, type: 3}
   firePoint: {fileID: 3061397343187543797}
   enemyActive: 0
+  canAct: 0
   hasKey: 0
   health: 400
   score: 5

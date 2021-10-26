@@ -129,6 +129,7 @@ public class PlayerController : MonoBehaviour
                 dashCounter = dashLength;
                 isDashing = true;
                 anim.SetTrigger("isDashing");
+                PlayerHealthController.instance.DashIFrames();
             }
 
         }

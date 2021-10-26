@@ -180,9 +180,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85a62bd264f70684f8661bf68f96dfc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
+  moveSpeed: 5
   fireRate: 0.2
-  dashSpeed: 8
+  playerScoreMultiplier: 0
+  dashSpeed: 10
   dashLength: 0.5
   dashCooldown: 0.7
   dashInvincibility: 0.5
@@ -193,10 +194,12 @@ MonoBehaviour:
   trailPosition: {fileID: 3140734849012245185}
   anim: {fileID: 0}
   arrowType: ArrowOne
+  playerSpeedLevel: 0
   bodySprite: {fileID: 7880624478380835591}
   dissolve: {fileID: 0}
   canMove: 1
   hasKey: 0
+  currentRoomID: 0
   inputType: 0
 --- !u!95 &7880624478380835590
 Animator:

@@ -38,7 +38,7 @@ public class BossController : MonoBehaviour
         currentLaserNumber = laserNumber;
         currentFireballCount = fireballCount;
 
-        if (DifficultyController.instance.enemyDifficulty == DifficultyController.EnemyDifficulty.Hard && DifficultyController.instance.roomDifficulty == DifficultyController.RoomDifficulty.Hard)
+        if (DifficultyController.instance.selectedDifficulty == DifficultyController.SelectedDifficulty.Hard)
         {
             fireballCount = 12;
             fireballRate = 1;
